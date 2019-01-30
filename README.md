@@ -10,9 +10,9 @@ Timeline:
 
 [TensorFlow Sucks](http://nicodjimenez.github.io/2017/10/08/tensorflow.html).
 
-In the past time, we have no choice but to stand the extremely bad TensorFlow 1.\*, and  a lot of people turn their heads to PyTorch(Yes!) to save time and money.
+In the past period, we have no choice but to stand the extremely bad TensorFlow 1.\*, and  a lot of people turn their heads to PyTorch(Yes!) to save time and money.
 
-But now, we have TensorFlow 2.0 finally.
+But now, we (will) have TensorFlow 2.0 finally.
 
 Let's get started!
 
