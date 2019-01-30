@@ -18,3 +18,12 @@ Let's get started!
 
 # Installation
 
+1. CPU install
+```python
+pip install tf-nightly-2.0-preview
+```
+
+2. GPU install
+```python
+pip install tf-nightly-gpu-2.0-preview
+```
