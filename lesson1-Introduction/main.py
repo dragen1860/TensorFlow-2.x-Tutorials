@@ -39,7 +39,9 @@ def train_one_step(model, optimizer, x, y):
     logits = model(x)
     loss = compute_loss(logits, y)
 
+  # compute gradient
   grads = tape.gradient(loss, model.trainable_variables)
+  # update to weights
   optimizer.apply_gradients(zip(grads, model.trainable_variables))
 
   accuracy = compute_accuracy(logits, y)
@@ -77,7 +79,7 @@ def main():
 
     for epoch in range(20):
         loss, accuracy = train(epoch, model, optimizer)
-    print('Final epoch', epoch, ': loss', loss, '; accuracy', accuracy)
+    print('Final epoch', epoch, ': loss', loss.numpy(), '; accuracy', accuracy.numpy())
 
 
 if __name__ == '__main__':
