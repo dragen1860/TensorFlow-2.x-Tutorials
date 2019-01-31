@@ -41,3 +41,10 @@ totalMemory: 3.95GiB freeMemory: 3.00GiB
 Out[4]: True
 
 ```
+
+
+# Lesson1
+Simple MNIST example to have a while glimpse of TF2.0
+```
+python main.py
+```
