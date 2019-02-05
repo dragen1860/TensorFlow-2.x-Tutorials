@@ -63,6 +63,15 @@ def train(epoch, model, optimizer):
 
 
 
+class MyModel:
+
+    def __init__(self):
+
+        self.weights = []
+        for i in range(3):
+            self.weights.append(tf.random.normal([]))
+
+
 def main():
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'  # or any {'0', '1', '2'}
 
@@ -75,7 +84,7 @@ def main():
         layers.Dense(10)])
     # no need to use compile if you have no loss/optimizer/metrics involved here.
     # TODO: without model.build() it can also work. why
-    model.build()
+    # model.build()
     optimizer = optimizers.Adam()
 
     for epoch in range(20):
