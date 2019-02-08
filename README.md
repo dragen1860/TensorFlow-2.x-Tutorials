@@ -51,3 +51,6 @@ Simple classification example to show you how to train, load/save checkpoint, ev
 3. forward and backward with keras subclassing custom layer
 4. forward and backward with tf.matmul
 
+# Lesson 15
+train CIFAR10 dataset with VGG16 network.
+
