@@ -13,7 +13,7 @@ from    tensorflow.keras import regularizers
 
 
 
-class VGG16(layers.Layer):
+class VGG16(models.Model):
 
 
     def __init__(self, input_shape):
@@ -23,7 +23,7 @@ class VGG16(layers.Layer):
         """
         super(VGG16, self).__init__()
 
-        weight_decay = 0.0006
+        weight_decay = 0.000
         self.num_classes = 10
 
         model = models.Sequential()

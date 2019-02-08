@@ -79,7 +79,7 @@ def main():
     criteon = keras.losses.CategoricalCrossentropy(from_logits=True)
     metric = keras.metrics.CategoricalAccuracy()
 
-    optimizer = optimizers.Adam(learning_rate=0.001)
+    optimizer = optimizers.Adam(learning_rate=0.0001)
 
 
     for epoch in range(250):
@@ -111,14 +111,21 @@ def main():
                 metric.reset_states()
 
 
-        if epoch % 2 == 0:
+        if epoch % 1 == 0:
 
             metric = keras.metrics.CategoricalAccuracy()
             for x, y in test_loader:
-                logits = model(x)
+                # [b, 1] => [b]
+                y = tf.squeeze(y, axis=1)
+                # [b, 10]
+                y = tf.one_hot(y, depth=10)
+
+                logits = model.predict(x)
+                # be careful, these functions can accept y as [b] without warnning.
                 metric.update_state(y, logits)
             print('test acc:', metric.result().numpy())
             metric.reset_states()
+
 
 
 
