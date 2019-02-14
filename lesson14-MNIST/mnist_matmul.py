@@ -63,19 +63,53 @@ def train(epoch, model, optimizer):
 
 
 
+
+
+class MyLayer(layers.Layer):
+
+
+    def __init__(self, units):
+        """
+
+        :param units: [input_dim, h1_dim,...,hn_dim, output_dim]
+        """
+        super(MyLayer, self).__init__()
+
+
+        for i in range(1, len(units)):
+            # w: [input_dim, output_dim]
+            self.add_variable(name='kernel%d'%i, shape=[units[i-1], units[i]])
+            # b: [output_dim]
+            self.add_variable(name='bias%d'%i,shape=[units[i]])
+
+
+
+    def call(self, x):
+        """
+
+        :param x: [b, input_dim]
+        :return:
+        """
+        num = len(self.trainable_variables)
+
+        x = tf.reshape(x, [-1, 28*28])
+
+        for i in range(0, num, 2):
+
+            x = tf.matmul(x, self.trainable_variables[i]) + self.trainable_variables[i+1]
+
+        return x
+
+
+
 def main():
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'  # or any {'0', '1', '2'}
 
     train_dataset = mnist_dataset()
 
-    model = keras.Sequential([
-        layers.Reshape(target_shape=(28 * 28,), input_shape=(28, 28)),
-        layers.Dense(100, activation='relu'),
-        layers.Dense(100, activation='relu'),
-        layers.Dense(10)])
-    # no need to use compile if you have no loss/optimizer/metrics involved here.
-    # TODO: without model.build() it can also work. why
-    model.build()
+    model = MyLayer([28*28, 100, 100, 10])
+    for p in model.trainable_variables:
+        print(p.name, p.shape)
     optimizer = optimizers.Adam()
 
     for epoch in range(20):
