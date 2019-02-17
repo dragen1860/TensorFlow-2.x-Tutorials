@@ -1,6 +1,6 @@
 import  os
 import  time
-import  glob
+import  numpy as np
 import  matplotlib.pyplot as plt
 import  tensorflow as tf
 import  numpy as np
@@ -45,9 +45,12 @@ print('train B:', trainB_size)
 def load_image(image_file):
     image = tf.io.read_file(image_file)
     image = tf.image.decode_jpeg(image, channels=3)
+    # scale alread!
     image = tf.image.convert_image_dtype(image, tf.float32)
     image = tf.image.resize(image, [256, 256])
-    image = (image / 127.5) - 1
+    # image = (image / 127.5) - 1
+    image = image * 2 - 1
+
     return image
 
 
@@ -66,7 +69,7 @@ train_datasetB = train_datasetB.prefetch(batch_size)
 train_datasetB = iter(train_datasetB)
 
 a = next(train_datasetA)
-print('img shape:', a.shape)
+print('img shape:', a.shape, a.numpy().min(), a.numpy().max())
 
 discA = Discriminator()
 discB = Discriminator()
@@ -91,13 +94,12 @@ def generate_images(A, B, B2A, A2B, epoch):
     :return:
     """
     plt.figure(figsize=(15, 15))
-    A = tf.reshape(A, [256, 256, 3])
-    B = tf.reshape(B, [256, 256, 3])
-    B2A = tf.reshape(B2A, [256, 256, 3])
-    A2B = tf.reshape(A2B, [256, 256, 3])
+    A = tf.reshape(A, [256, 256, 3]).numpy()
+    B = tf.reshape(B, [256, 256, 3]).numpy()
+    B2A = tf.reshape(B2A, [256, 256, 3]).numpy()
+    A2B = tf.reshape(A2B, [256, 256, 3]).numpy()
     display_list = [A, B, B2A, A2B]
-    display_list = map(lambda x: ((x+1)*127.5) for img in display_list)
-        
+
     title = ['A', 'B','B2A', 'A2B']
     for i in range(4):
         plt.subplot(2, 2, i + 1)
@@ -164,7 +166,7 @@ def train(train_datasetA, train_datasetB, epochs, lsgan=True, cyc_lambda=10):
         discB_optimizer.apply_gradients(zip(discB_gradients, discB.trainable_variables))
 
 
-        if epochs % 100 == 0:
+        if epoch % 40 == 0:
             generate_images(trainA, trainB, genB2A_output, genA2B_output, epoch)
 
             print('Time taken for epoch {} is {} sec'.format(epoch + 1, time.time() - start))
