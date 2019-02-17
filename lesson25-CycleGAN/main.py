@@ -98,9 +98,9 @@ def generate_images(A, B, B2A, A2B, epoch):
     B = tf.reshape(B, [256, 256, 3]).numpy()
     B2A = tf.reshape(B2A, [256, 256, 3]).numpy()
     A2B = tf.reshape(A2B, [256, 256, 3]).numpy()
-    display_list = [A, B, B2A, A2B]
+    display_list = [A, B, A2B, B2A]
 
-    title = ['A', 'B','B2A', 'A2B']
+    title = ['A', 'B', 'A2B', 'B2A']
     for i in range(4):
         plt.subplot(2, 2, i + 1)
         plt.title(title[i])
