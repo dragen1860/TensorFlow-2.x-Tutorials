@@ -95,7 +95,8 @@ def bbox_clip(box, window):
     return clipped
 
 def bbox_flip(bboxes, width):
-    '''Flip bboxes horizontally.
+    '''
+    Flip bboxes horizontally.
     
     Args
     ---

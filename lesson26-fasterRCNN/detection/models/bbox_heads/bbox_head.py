@@ -1,5 +1,5 @@
 import tensorflow as tf
-layers = tf.keras.layers
+from    tensorflow.keras import layers
 
 from detection.core.bbox import transforms
 from detection.core.loss import losses
@@ -41,7 +41,7 @@ class BBoxHead(tf.keras.Model):
         
         self.rcnn_delta_fc = layers.Dense(num_classes * 4, name='rcnn_bbox_fc')
         
-    def __call__(self, inputs, training=True):
+    def call(self, inputs, training=True):
         '''
         Args
         ---
@@ -84,8 +84,14 @@ class BBoxHead(tf.keras.Model):
     def loss(self, 
              rcnn_class_logits_list, rcnn_deltas_list, 
              rcnn_target_matchs_list, rcnn_target_deltas_list):
-        '''Calculate RCNN loss
-        '''
+        """
+
+        :param rcnn_class_logits_list:
+        :param rcnn_deltas_list:
+        :param rcnn_target_matchs_list:
+        :param rcnn_target_deltas_list:
+        :return:
+        """
         rcnn_class_loss = self.rcnn_class_loss(
             rcnn_target_matchs_list, rcnn_class_logits_list)
         rcnn_bbox_loss = self.rcnn_bbox_loss(

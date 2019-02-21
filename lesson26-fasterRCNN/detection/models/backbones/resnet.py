@@ -9,6 +9,7 @@ import  tensorflow as tf
 from    tensorflow.keras import layers
 
 class _Bottleneck(tf.keras.Model):
+
     def __init__(self, filters, block, 
                  downsampling=False, stride=1, **kwargs):
         super(_Bottleneck, self).__init__(**kwargs)
@@ -42,7 +43,7 @@ class _Bottleneck(tf.keras.Model):
                                                name=conv_name_base + '1')
             self.bn_shortcut = layers.BatchNormalization(name=bn_name_base + '1')     
     
-    def __call__(self, inputs, training=False):
+    def call(self, inputs, training=False):
         x = self.conv2a(inputs)
         x = self.bn2a(x, training=training)
         x = tf.nn.relu(x)
@@ -136,7 +137,7 @@ class ResNet(tf.keras.Model):
         
         self.out_channel = (256, 512, 1024, 2048)
     
-    def __call__(self, inputs, training=True):
+    def call(self, inputs, training=True):
         x = self.padding(inputs)
         x = self.conv1(x)
         x = self.bn_conv1(x, training=training)

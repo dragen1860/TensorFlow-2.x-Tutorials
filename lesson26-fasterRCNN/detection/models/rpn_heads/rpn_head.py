@@ -36,7 +36,7 @@ class RPNHead(tf.keras.Model):
             anchor_feature_strides: Stride of the feature map relative 
                 to the image in pixels.
             proposal_count: int. RPN proposals kept after non-maximum 
-                supression.
+                suppression.
             nms_threshold: float. Non-maximum suppression threshold to 
                 filter RPN proposals.
             target_means: [4] Bounding box refinement mean.
@@ -99,16 +99,49 @@ class RPNHead(tf.keras.Model):
         
         layer_outputs = []
         
-        for feat in inputs:
+        for feat in inputs: # for every anchors feature maps
+            """
+            (1, 304, 304, 256)
+            (1, 152, 152, 256)
+            (1, 76, 76, 256)
+            (1, 38, 38, 256)
+            (1, 19, 19, 256)
+            rpn_class_raw: (1, 304, 304, 6)
+            rpn_class_logits: (1, 277248, 2)
+            rpn_delta_pred: (1, 304, 304, 12)
+            rpn_deltas: (1, 277248, 4)
+            rpn_class_raw: (1, 152, 152, 6)
+            rpn_class_logits: (1, 69312, 2)
+            rpn_delta_pred: (1, 152, 152, 12)
+            rpn_deltas: (1, 69312, 4)
+            rpn_class_raw: (1, 76, 76, 6)
+            rpn_class_logits: (1, 17328, 2)
+            rpn_delta_pred: (1, 76, 76, 12)
+            rpn_deltas: (1, 17328, 4)
+            rpn_class_raw: (1, 38, 38, 6)
+            rpn_class_logits: (1, 4332, 2)
+            rpn_delta_pred: (1, 38, 38, 12)
+            rpn_deltas: (1, 4332, 4)
+            rpn_class_raw: (1, 19, 19, 6)
+            rpn_class_logits: (1, 1083, 2)
+            rpn_delta_pred: (1, 19, 19, 12)
+            rpn_deltas: (1, 1083, 4)
+
+            """
+            # print(feat.shape)
             shared = self.rpn_conv_shared(feat)
             shared = tf.nn.relu(shared)
 
             x = self.rpn_class_raw(shared)
+            # print('rpn_class_raw:', x.shape)
             rpn_class_logits = tf.reshape(x, [tf.shape(x)[0], -1, 2])
             rpn_probs = tf.nn.softmax(rpn_class_logits)
+            # print('rpn_class_logits:', rpn_class_logits.shape)
 
             x = self.rpn_delta_pred(shared)
+            # print('rpn_delta_pred:', x.shape)
             rpn_deltas = tf.reshape(x, [tf.shape(x)[0], -1, 4])
+            # print('rpn_deltas:', rpn_deltas.shape)
             
             layer_outputs.append([rpn_class_logits, rpn_probs, rpn_deltas])
             # print(rpn_class_logits.shape, rpn_probs.shape, rpn_deltas.shape)
@@ -131,11 +164,19 @@ class RPNHead(tf.keras.Model):
         return rpn_class_logits, rpn_probs, rpn_deltas
 
     def loss(self, rpn_class_logits, rpn_deltas, gt_boxes, gt_class_ids, img_metas):
-        '''
-        Calculate rpn loss
-        '''
+        """
+
+        :param rpn_class_logits: [N, 2]
+        :param rpn_deltas: [N, 4]
+        :param gt_boxes:  [GT_N]
+        :param gt_class_ids:  [GT_N]
+        :param img_metas: [11]
+        :return:
+        """
+        # valid_flags indicates anchors located in padded area or not.
         anchors, valid_flags = self.generator.generate_pyramid_anchors(img_metas)
-        
+
+        #
         rpn_target_matchs, rpn_target_deltas = self.anchor_target.build_targets(
             anchors, valid_flags, gt_boxes, gt_class_ids)
         
@@ -151,7 +192,8 @@ class RPNHead(tf.keras.Model):
                       rpn_deltas, 
                       img_metas, 
                       with_probs=False):
-        '''Calculate proposals.
+        '''
+        Calculate proposals.
         
         Args
         ---
@@ -171,9 +213,10 @@ class RPNHead(tf.keras.Model):
            images in one batch may have different num_proposals.
         '''
         anchors, valid_flags = self.generator.generate_pyramid_anchors(img_metas)
-        
+
+        # [b, N, (background prob, foreground prob)]
         rpn_probs = rpn_probs[:, :, 1]
-        
+        #
         pad_shapes = calc_pad_shapes(img_metas)
         
         proposals_list = [
@@ -191,7 +234,8 @@ class RPNHead(tf.keras.Model):
                               valid_flags, 
                               img_shape, 
                               with_probs):
-        '''Calculate proposals.
+        '''
+        Calculate proposals.
         
         Args
         ---

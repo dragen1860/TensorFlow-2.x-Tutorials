@@ -1,7 +1,8 @@
 import tensorflow as tf
 
 def trim_zeros(boxes, name=None):
-    '''Often boxes are represented with matrices of shape [N, 4] and
+    '''
+    Often boxes are represented with matrices of shape [N, 4] and
     are padded with zeros. This removes zero boxes.
     
     Args
@@ -14,7 +15,8 @@ def trim_zeros(boxes, name=None):
     return boxes, non_zeros
 
 def parse_image_meta(meta):
-    '''Parses a tensor that contains image attributes to its components.
+    '''
+    Parses a tensor that contains image attributes to its components.
     
     Args
     ---

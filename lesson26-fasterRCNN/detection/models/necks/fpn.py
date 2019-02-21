@@ -1,4 +1,5 @@
-'''FRN model for Keras.
+'''
+FRN model for Keras.
 
 # Reference:
 - [Feature Pyramid Networks for Object Detection](
@@ -9,6 +10,7 @@ import  tensorflow as tf
 from    tensorflow.keras import layers
 
 class FPN(tf.keras.Model):
+
     def __init__(self, out_channels=256, **kwargs):
         '''
         Feature Pyramid Networks
@@ -47,7 +49,7 @@ class FPN(tf.keras.Model):
         self.fpn_p6 = layers.MaxPooling2D(pool_size=(1, 1), strides=2, name='fpn_p6')
         
             
-    def __call__(self, inputs, training=True):
+    def call(self, inputs, training=True):
         C2, C3, C4, C5 = inputs
         
         P5 = self.fpn_c5p5(C5)

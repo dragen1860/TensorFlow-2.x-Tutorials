@@ -4,7 +4,7 @@ import tensorflow as tf
 from detection.core.bbox import transforms
 from detection.utils.misc import *
 
-class RPNTestMixin(object):
+class RPNTestMixin:
     
     def simple_test_rpn(self, img, img_meta):
         '''
