@@ -5,8 +5,8 @@
     https://arxiv.org/abs/1512.03385)
 
 '''
-import tensorflow as tf
-layers = tf.keras.layers
+import  tensorflow as tf
+from    tensorflow.keras import layers
 
 class _Bottleneck(tf.keras.Model):
     def __init__(self, filters, block, 
@@ -75,6 +75,7 @@ class _Bottleneck(tf.keras.Model):
         
 
 class ResNet(tf.keras.Model):
+
     def __init__(self, depth, **kwargs):
         super(ResNet, self).__init__(**kwargs)
               

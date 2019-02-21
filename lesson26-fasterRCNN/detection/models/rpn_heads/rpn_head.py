@@ -1,5 +1,5 @@
-import tensorflow as tf
-layers = tf.keras.layers
+import  tensorflow as tf
+from    tensorflow.keras import layers
 
 from detection.core.bbox import transforms
 from detection.utils.misc import *
@@ -8,6 +8,7 @@ from detection.core.anchor import anchor_generator, anchor_target
 from detection.core.loss import losses
 
 class RPNHead(tf.keras.Model):
+
     def __init__(self, 
                  anchor_scales=(32, 64, 128, 256, 512), 
                  anchor_ratios=(0.5, 1, 2), 
@@ -21,7 +22,8 @@ class RPNHead(tf.keras.Model):
                  pos_iou_thr=0.7,
                  neg_iou_thr=0.3,
                  **kwags):
-        '''Network head of Region Proposal Network.
+        '''
+        Network head of Region Proposal Network.
 
                                       / - rpn_cls (1x1 conv)
         input - rpn_conv (3x3 conv) -
@@ -73,7 +75,7 @@ class RPNHead(tf.keras.Model):
                                              kernel_initializer='he_normal', 
                                              name='rpn_conv_shared')
         
-        self.rpn_class_raw = layers.Conv2D(2 * len(anchor_ratios), (1, 1),
+        self.rpn_class_raw = layers.Conv2D(len(anchor_ratios) * 2, (1, 1),
                                            kernel_initializer='he_normal', 
                                            name='rpn_class_raw')
 
@@ -81,7 +83,7 @@ class RPNHead(tf.keras.Model):
                                            kernel_initializer='he_normal', 
                                            name='rpn_bbox_pred')
         
-    def __call__(self, inputs, training=True):
+    def call(self, inputs, training=True):
         '''
         Args
         ---
@@ -109,15 +111,28 @@ class RPNHead(tf.keras.Model):
             rpn_deltas = tf.reshape(x, [tf.shape(x)[0], -1, 4])
             
             layer_outputs.append([rpn_class_logits, rpn_probs, rpn_deltas])
+            # print(rpn_class_logits.shape, rpn_probs.shape, rpn_deltas.shape)
+            """
+            (1, 277248, 2) (1, 277248, 2) (1, 277248, 4)
+            (1, 69312, 2) (1, 69312, 2) (1, 69312, 4)
+            (1, 17328, 2) (1, 17328, 2) (1, 17328, 4)
+            (1, 4332, 2) (1, 4332, 2) (1, 4332, 4)
+            (1, 1083, 2) (1, 1083, 2) (1, 1083, 4)
+
+            """
+
 
         outputs = list(zip(*layer_outputs))
         outputs = [tf.concat(list(o), axis=1) for o in outputs]
         rpn_class_logits, rpn_probs, rpn_deltas = outputs
+        # (1, 369303, 2) (1, 369303, 2) (1, 369303, 4)
+        # print(rpn_class_logits.shape, rpn_probs.shape, rpn_deltas.shape)
         
         return rpn_class_logits, rpn_probs, rpn_deltas
 
     def loss(self, rpn_class_logits, rpn_deltas, gt_boxes, gt_class_ids, img_metas):
-        '''Calculate rpn loss
+        '''
+        Calculate rpn loss
         '''
         anchors, valid_flags = self.generator.generate_pyramid_anchors(img_metas)
         

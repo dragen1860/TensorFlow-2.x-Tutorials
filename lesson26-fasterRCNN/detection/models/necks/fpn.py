@@ -5,12 +5,13 @@
     https://arxiv.org/abs/1612.03144)
 
 '''
-import tensorflow as tf
-layers = tf.keras.layers
+import  tensorflow as tf
+from    tensorflow.keras import layers
 
 class FPN(tf.keras.Model):
     def __init__(self, out_channels=256, **kwargs):
-        '''Feature Pyramid Networks
+        '''
+        Feature Pyramid Networks
         
         Attributes
         ---
@@ -85,12 +86,11 @@ class FPN(tf.keras.Model):
                 tf.TensorShape(C6_shape)]
 
 if __name__ == '__main__':
-    tf.enable_eager_execution()
     
-    C2 = tf.random_normal((2, 256, 256,  256))
-    C3 = tf.random_normal((2, 128, 128,  512))
-    C4 = tf.random_normal((2,  64,  64, 1024))
-    C5 = tf.random_normal((2,  32,  32, 2048))
+    C2 = tf.random.normal((2, 256, 256,  256))
+    C3 = tf.random.normal((2, 128, 128,  512))
+    C4 = tf.random.normal((2,  64,  64, 1024))
+    C5 = tf.random.normal((2,  32,  32, 2048))
     
     fpn = FPN()
     

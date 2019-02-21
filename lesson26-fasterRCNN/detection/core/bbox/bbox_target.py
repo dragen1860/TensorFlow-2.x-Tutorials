@@ -4,7 +4,8 @@ import tensorflow as tf
 from detection.core.bbox import geometry, transforms
 from detection.utils.misc import *
 
-class ProposalTarget(object):
+class ProposalTarget:
+
     def __init__(self,
                  target_means=(0., 0., 0., 0.),
                  target_stds=(0.1, 0.1, 0.2, 0.2), 

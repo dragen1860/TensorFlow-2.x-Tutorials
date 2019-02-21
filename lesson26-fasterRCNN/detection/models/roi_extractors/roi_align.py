@@ -3,8 +3,10 @@ import tensorflow as tf
 from detection.utils.misc import *
 
 class PyramidROIAlign(tf.keras.layers.Layer):
+
     def __init__(self, pool_shape, **kwargs):
-        '''Implements ROI Pooling on multiple levels of the feature pyramid.
+        '''
+        Implements ROI Pooling on multiple levels of the feature pyramid.
 
         Attributes
         ---
@@ -12,9 +14,10 @@ class PyramidROIAlign(tf.keras.layers.Layer):
                 Example: (7, 7)
         '''
         super(PyramidROIAlign, self).__init__(**kwargs)
+
         self.pool_shape = tuple(pool_shape)
 
-    def __call__(self, inputs, training=True):
+    def call(self, inputs, training=True):
         '''
         Args
         ---
