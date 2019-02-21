@@ -1,12 +1,11 @@
-# tf-eager-fasterrcnn
+# Faster RCNN
 
-Faster R-CNN R-101-FPN model was implemented with tensorflow eager execution. 
+Faster R-CNN R-101-FPN model was implemented with tensorflow 2.0.
 
 # Requirements
 
-- Cuda 9.0
-- Python 3.5
-- TensorFlow 1.11
+- python 3.*
+- tensorflow 2.*
 - cv2
 
 # Usage
@@ -15,23 +14,17 @@ see `train_model.ipynb` and `inspect_model.ipynb`
 
 ### Download trained Faster R-CNN
 
+- [Google Drive](https://drive.google.com/open?id=12gh8ei9w6MeAXXIxONNR-xdEdTJ8Zkko)
+
 - [百度网盘](https://pan.baidu.com/s/1I5PGkpvnDSduJnngoWuktQ)
 
 
-# Updating
-
-- [ ] evaluation utils
-- [ ] training without for-loop when batch size > 1
-- [ ] TTA (multi-scale testing and flip)
-- [ ] online hard examples mining
-- [ ] multi-scale training
-- [ ] soft-nms
-- [ ] balanced sampling and negative samples training (maybe)
 
 
 # Acknowledgement
 
 This work builds on many excellent works, which include:
 
+- heavily based on [tf-eager-fasterrcnn](https://github.com/Viredery/tf-eager-fasterrcnn)
 - [matterport/Mask_RCNN](https://github.com/matterport/Mask_RCNN)
 - [open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection)
