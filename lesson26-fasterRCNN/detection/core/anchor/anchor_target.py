@@ -1,12 +1,15 @@
 import tensorflow as tf
-
 from detection.core.bbox import geometry, transforms
 from detection.utils.misc import trim_zeros
 
 
 
 class AnchorTarget:
-
+    """
+    for every generated anchors boxes: [326393, 4],
+    create its rpn_target_matchs and rpn_target_matchs
+    which is used to train RPN network.
+    """
     def __init__(self,
                  target_means=(0., 0., 0., 0.), 
                  target_stds=(0.1, 0.1, 0.2, 0.2),
