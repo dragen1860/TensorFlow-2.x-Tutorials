@@ -1,3 +1,2 @@
 __pycache__
-weights/*
-
+weights/faster_rcnn.h5
