@@ -1,9 +1,13 @@
-import tensorflow as tf
-
-from detection.utils.misc import *
+from detection.utils.misc import calc_img_shapes
 
 class AnchorGenerator:
-
+    """
+    This class operate on padded iamge, eg. [1216, 1216]
+    and generate scales*ratios number of anchor boxes for each point in
+    padded image, with stride = feature_strides
+    number of anchor = (1216 // feature_stride)^2
+    number of anchor boxes = number of anchor * (scales_len*ratio_len)
+    """
     def __init__(self, 
                  scales=(32, 64, 128, 256, 512), 
                  ratios=(0.5, 1, 2), 
