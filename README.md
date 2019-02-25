@@ -15,7 +15,7 @@ We have TensorFlow 2.0 finally.
 Let's get started!
 
 # Installation
-
+currently, TF 2.0 only support python 3.6.
 1. CPU install
 ```python
 pip install tf-nightly-2.0-preview
