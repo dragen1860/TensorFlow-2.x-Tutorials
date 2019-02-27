@@ -15,7 +15,11 @@ We have TensorFlow 2.0 finally.
 Let's get started!
 
 # Installation
+<<<<<<< HEAD
 
+=======
+currently, TF 2.0 only support python 3.6.
+>>>>>>> 6d45d5133fba52162effc783924a0d58f6b4e96c
 1. CPU install
 ```python
 pip install tf-nightly-2.0-preview
@@ -41,16 +45,41 @@ Out[4]: True
 ```
 
 
+<<<<<<< HEAD
 # Lesson1
 Simple classification example to show you how to train, load/save checkpoint, evaluate with new TF 2.0.
 
 # Lesson 14
+=======
+# Outline
+
+## Lesson1
+Simple classification example to show you how to train, load/save checkpoint, evaluate with new TF 2.0.
+
+## Lesson 14
+>>>>>>> 6d45d5133fba52162effc783924a0d58f6b4e96c
 4 ways to achieve simple MNIST classifcation with TF 2.0.
 1. keras compile & fit
 2. forward and backward with keras standard layers.Dense
 3. forward and backward with keras subclassing custom layer
 4. forward and backward with tf.matmul
 
+<<<<<<< HEAD
 # Lesson 15
 train CIFAR10 dataset with VGG16 network.
 
+=======
+## Lesson 15
+train CIFAR10 dataset with VGG16 network.
+
+
+
+
+# Refered Repo.
+
+Our work is not built from scratch. Great appreciatoin to these open works！
+
+- https://github.com/herbiebradley/CycleGAN-Tensorflow
+- https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/eager/python/examples/pix2pix/pix2pix_eager.ipynb
+- https://github.com/moono/tf-eager-on-GAN
+>>>>>>> 6d45d5133fba52162effc783924a0d58f6b4e96c

@@ -1,0 +1,3 @@
+.idea
+__pycache__
+weights/faster_rcnn.h5
