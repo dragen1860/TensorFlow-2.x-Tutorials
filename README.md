@@ -6,20 +6,15 @@ Timeline:
 - Jan. 11, 2019: [TensorFlow r2.0 preview](https://www.tensorflow.org/versions/r2.0/api_docs/python/tf)
 - Aug. 14, 2018: [TensorFlow 2.0 is coming](https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/bgug1G6a89A)
 
-# TensorFlow 1.0 is out-of-date!
+# TensorFlow 1.0 was gone
 
 [TensorFlow Sucks](http://nicodjimenez.github.io/2017/10/08/tensorflow.html).
 
-We have TensorFlow 2.0 finally.
-
-Let's get started!
 
 # Installation
-<<<<<<< HEAD
 
-=======
-currently, TF 2.0 only support python 3.6.
->>>>>>> 6d45d5133fba52162effc783924a0d58f6b4e96c
+Currently, TF 2.0 only support python 3.6.
+
 1. CPU install
 ```python
 pip install tf-nightly-2.0-preview
@@ -44,42 +39,37 @@ Out[4]: True
 
 ```
 
-
-<<<<<<< HEAD
-# Lesson1
-Simple classification example to show you how to train, load/save checkpoint, evaluate with new TF 2.0.
-
-# Lesson 14
-=======
+ 
 # Outline
 
-## Lesson1
-Simple classification example to show you how to train, load/save checkpoint, evaluate with new TF 2.0.
+- TensorFlow 2.0 overview
+- TensorFlow 2.0 Basic Usage
+- Linear Regression
+- MNIST
+- CIFAR10
+- Fully Connected Layer
+- Inception Network
+- ResNet
+- Naive RNN
+- LSTM
+- ColorBot
+- Auto-Encoders
+- Variational Auto-Encoders
+- GAN
+- CycleGAN
+- WGAN
+- Pixel2Pixel
+- Faster RCNN
+and more is waiting to be updated!
+ 
 
-## Lesson 14
->>>>>>> 6d45d5133fba52162effc783924a0d58f6b4e96c
-4 ways to achieve simple MNIST classifcation with TF 2.0.
-1. keras compile & fit
-2. forward and backward with keras standard layers.Dense
-3. forward and backward with keras subclassing custom layer
-4. forward and backward with tf.matmul
-
-<<<<<<< HEAD
-# Lesson 15
-train CIFAR10 dataset with VGG16 network.
-
-=======
-## Lesson 15
-train CIFAR10 dataset with VGG16 network.
 
 
-
-
-# Refered Repo.
+# Refered Repos.
 
 Our work is not built from scratch. Great appreciatoin to these open works！
 
 - https://github.com/herbiebradley/CycleGAN-Tensorflow
 - https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/eager/python/examples/pix2pix/pix2pix_eager.ipynb
 - https://github.com/moono/tf-eager-on-GAN
->>>>>>> 6d45d5133fba52162effc783924a0d58f6b4e96c
+
