@@ -14,16 +14,16 @@ Timeline:
 
 # Installation
 
-Currently, TF 2.0 only support python 3.6.
+
 
 1. CPU install
 ```python
-pip install tf-nightly-2.0-preview
+pip install tensorflow==2.0.0-alpha0
 ```
 
 2. GPU install
 ```python
-pip install tf-nightly-gpu-2.0-preview
+pip install tensorflow-gpu==2.0.0-alpha0
 ```
 
 Test installation:
