@@ -37,7 +37,8 @@ class AnchorTarget:
         self.neg_iou_thr = neg_iou_thr
 
     def build_targets(self, anchors, valid_flags, gt_boxes, gt_class_ids):
-        '''Given the anchors and GT boxes, compute overlaps and identify positive
+        '''
+        Given the anchors and GT boxes, compute overlaps and identify positive
         anchors and deltas to refine them to match their corresponding GT boxes.
 
         Args
@@ -115,7 +116,7 @@ class AnchorTarget:
                                  -tf.ones(anchors.shape[0], dtype=tf.int32), target_matchs)
 
         # filter invalid anchors
-        target_matchs = tf.where(tf.equal(valid_flags, 1), 
+        target_matchs = tf.where(tf.equal(valid_flags, 1),
                                  target_matchs, tf.zeros(anchors.shape[0], dtype=tf.int32))
         # if an anchor overlap with any GT box with IoU > 0.7, marked as foreground
         # 2. Set anchors with high overlap as positive.

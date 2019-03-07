@@ -1,17 +1,20 @@
-import os
-import tensorflow as tf
-from tensorflow import keras
-import numpy as np
-from matplotlib import pyplot as plt
-import visualize
+import  os
+import  tensorflow as tf
+from    tensorflow import keras
+import  numpy as np
+from    matplotlib import pyplot as plt
+import  visualize
 
-from detection.datasets import coco, data_generator
-from detection.datasets.utils import get_original_image
-from detection.models.detectors import faster_rcnn
+from    detection.datasets import coco, data_generator
+from    detection.datasets.utils import get_original_image
+from    detection.models.detectors import faster_rcnn
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 print(tf.__version__)
+assert tf.__version__.startswith('2.')
+tf.random.set_seed(22)
+np.random.seed(22)
 
 img_mean = (123.675, 116.28, 103.53)
 # img_std = (58.395, 57.12, 57.375)
@@ -34,14 +37,14 @@ train_tf_dataset = train_tf_dataset.batch(batch_size).prefetch(100).shuffle(100)
 model = faster_rcnn.FasterRCNN(num_classes=num_classes)
 optimizer = keras.optimizers.SGD(1e-3, momentum=0.9, nesterov=True)
 
-img, img_meta, bboxes, labels = train_dataset[6]
+img, img_meta, bboxes, labels = train_dataset[6] # [N, 4], shape:[N]=data:[62]
 rgb_img = np.round(img + img_mean)
 ori_img = get_original_image(img, img_meta, img_mean)
 # visualize.display_instances(rgb_img, bboxes, labels, train_dataset.get_categories())
 
 
-batch_imgs = tf.convert_to_tensor(np.expand_dims(img, 0))
-batch_metas = tf.convert_to_tensor(np.expand_dims(img_meta, 0))
+batch_imgs = tf.convert_to_tensor(np.expand_dims(img, 0)) # [1, 1216, 1216, 3]
+batch_metas = tf.convert_to_tensor(np.expand_dims(img_meta, 0)) # [1, 11]
 
 # dummpy forward to build network variables
 _ = model((batch_imgs, batch_metas), training=False)

@@ -52,7 +52,7 @@ class ProposalTarget:
            images in one batch may have different num_rois and num_positive_rois.
         '''
         
-        pad_shapes = calc_pad_shapes(img_metas)
+        pad_shapes = calc_pad_shapes(img_metas) # [[1216, 1216]]
         
         rois_list = []
         rcnn_target_matchs_list = []
@@ -61,9 +61,9 @@ class ProposalTarget:
         for i in range(img_metas.shape[0]):
             rois, target_matchs, target_deltas = self._build_single_target(
                 proposals_list[i], gt_boxes[i], gt_class_ids[i], pad_shapes[i])
-            rois_list.append(rois)
-            rcnn_target_matchs_list.append(target_matchs)
-            rcnn_target_deltas_list.append(target_deltas)
+            rois_list.append(rois) # [192, 4], including pos/neg anchors
+            rcnn_target_matchs_list.append(target_matchs) # positive target label, and padding with zero for neg
+            rcnn_target_deltas_list.append(target_deltas) # positive target deltas, and padding with zero for neg
         
         return rois_list, rcnn_target_matchs_list, rcnn_target_deltas_list
     
@@ -91,11 +91,11 @@ class ProposalTarget:
         gt_boxes = gt_boxes / tf.constant([H, W, H, W], dtype=tf.float32)
         # [2k, 4] with [7, 4] => [2k, 7] overlop scores
         overlaps = geometry.compute_overlaps(proposals, gt_boxes)
-        anchor_iou_argmax = tf.argmax(overlaps, axis=1) # get clost gt boxed id for each anchor boxes
-        roi_iou_max = tf.reduce_max(overlaps, axis=1) # get clost gt boxes overlop score for each anchor boxes
+        anchor_iou_argmax = tf.argmax(overlaps, axis=1) # [2000]get cloest gt boxed id for each anchor boxes
+        roi_iou_max = tf.reduce_max(overlaps, axis=1) # [2000]get clost gt boxes overlop score for each anchor boxes
         # roi_iou_max: [2000],
-        positive_roi_bool = (roi_iou_max >= self.pos_iou_thr)
-        positive_indices = tf.where(positive_roi_bool)[:, 0]
+        positive_roi_bool = (roi_iou_max >= self.pos_iou_thr) #[2000]
+        positive_indices = tf.where(positive_roi_bool)[:, 0] #[48, 1] =>[48]
         # get all positive indices, namely get all pos_anchor indices
         negative_indices = tf.where(roi_iou_max < self.neg_iou_thr)[:, 0]
         # get all negative anchor indices
@@ -110,16 +110,16 @@ class ProposalTarget:
         negative_count = tf.cast(r * tf.cast(positive_count, tf.float32), tf.int32) - positive_count #102
         negative_indices = tf.random.shuffle(negative_indices)[:negative_count] #[102]
         
-        # Gather selected ROIs
+        # Gather selected ROIs, based on remove redundant pos/neg indices
         positive_rois = tf.gather(proposals, positive_indices) # [34, 4]
         negative_rois = tf.gather(proposals, negative_indices) # [102, 4]
         
         # Assign positive ROIs to GT boxes.
         positive_overlaps = tf.gather(overlaps, positive_indices) # [34, 7]
-        roi_gt_box_assignment = tf.argmax(positive_overlaps, axis=1) # for each anchor, get its clost gt boxes
+        roi_gt_box_assignment = tf.argmax(positive_overlaps, axis=1) # [34]for each anchor, get its clost gt boxes
         roi_gt_boxes = tf.gather(gt_boxes, roi_gt_box_assignment) # [34, 4]
         target_matchs = tf.gather(gt_class_ids, roi_gt_box_assignment) # [34]
-        
+        # target_matchs, target_deltas all get!!
         # proposal: [34, 4], target: [34, 4]
         target_deltas = transforms.bbox2delta(positive_rois, roi_gt_boxes, self.target_means, self.target_stds)
         # [34, 4] [102, 4]
