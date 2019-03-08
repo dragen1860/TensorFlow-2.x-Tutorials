@@ -73,6 +73,7 @@ Our work is not built from scratch. Great appreciatoin to these open works！
 - https://github.com/herbiebradley/CycleGAN-Tensorflow
 - https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/eager/python/examples/pix2pix/pix2pix_eager.ipynb
 - https://github.com/moono/tf-eager-on-GAN
+- https://github.com/Viredery/tf-eager-fasterrcnn
 
 # Acknowledgement
 - 爱可可-爱生活 友情推荐 ![](res/weibo.jpg)
