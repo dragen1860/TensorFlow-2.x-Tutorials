@@ -57,6 +57,7 @@ Out[4]: True
 - WGAN
 - Pixel2Pixel
 - Faster RCNN
+
 and more is waiting to be updated!
  
 
@@ -66,6 +67,7 @@ and more is waiting to be updated!
 
 Our work is not built from scratch. Great appreciatoin to these open works！
 
+- https://github.com/madalinabuzau/tensorflow-eager-tutorials
 - https://github.com/herbiebradley/CycleGAN-Tensorflow
 - https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/eager/python/examples/pix2pix/pix2pix_eager.ipynb
 - https://github.com/moono/tf-eager-on-GAN
