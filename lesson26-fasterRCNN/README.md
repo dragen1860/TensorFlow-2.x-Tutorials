@@ -10,7 +10,12 @@ Faster R-CNN R-101-FPN model was implemented with tensorflow 2.0.
 
 # Usage
 
-see `train_model.ipynb` and `inspect_model.ipynb`
+```
+python train_model.py
+
+
+```
+see `train_model.ipynb` and `inspect_model.ipynb` for some insight.
 
 ### Download trained Faster R-CNN
 
