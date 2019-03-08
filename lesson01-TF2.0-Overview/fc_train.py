@@ -74,7 +74,8 @@ def main():
         layers.Dense(100, activation='relu'),
         layers.Dense(10)])
     # no need to use compile if you have no loss/optimizer/metrics involved here.
-    # TODO: without model.build() it can also work. why
+    # TODO: without model.build() you can not access variables information before first
+    # forward process
     # model.build()
     optimizer = optimizers.Adam()
 
