@@ -74,3 +74,6 @@ Our work is not built from scratch. Great appreciatoin to these open works！
 - https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/eager/python/examples/pix2pix/pix2pix_eager.ipynb
 - https://github.com/moono/tf-eager-on-GAN
 
+# Acknowledgement
+- 爱可可-爱生活 ![](res/weibo.jpg)
+
