@@ -213,10 +213,10 @@ class RPNHead(tf.keras.Model):
            images in one batch may have different num_proposals.
         '''
         anchors, valid_flags = self.generator.generate_pyramid_anchors(img_metas)
-
-        # [b, N, (background prob, foreground prob)]
+        # [369303, 4], [b, 11]
+        # [b, N, (background prob, foreground prob)], get anchor's foreground prob, [1, 369303]
         rpn_probs = rpn_probs[:, :, 1]
-        #
+        # [[1216, 1216]]
         pad_shapes = calc_pad_shapes(img_metas)
         
         proposals_list = [
@@ -255,35 +255,35 @@ class RPNHead(tf.keras.Model):
         
         H, W = img_shape
         
-        # filter invalid anchors
+        # filter invalid anchors, int => bool
         valid_flags = tf.cast(valid_flags, tf.bool)
-        
+        # [369303] => [215169], respectively
         rpn_probs = tf.boolean_mask(rpn_probs, valid_flags)
         rpn_deltas = tf.boolean_mask(rpn_deltas, valid_flags)
         anchors = tf.boolean_mask(anchors, valid_flags)
 
         # Improve performance
-        pre_nms_limit = min(6000, anchors.shape[0])
+        pre_nms_limit = min(6000, anchors.shape[0]) # min(6000, 215169) => 6000
         ix = tf.nn.top_k(rpn_probs, pre_nms_limit, sorted=True).indices
-        
+        # [215169] => [6000], respectively
         rpn_probs = tf.gather(rpn_probs, ix)
         rpn_deltas = tf.gather(rpn_deltas, ix)
         anchors = tf.gather(anchors, ix)
         
-        # Get refined anchors
+        # Get refined anchors, => [6000, 4]
         proposals = transforms.delta2bbox(anchors, rpn_deltas, 
                                           self.target_means, self.target_stds)
-        
+        # clipping to valid area, [6000, 4]
         window = tf.constant([0., 0., H, W], dtype=tf.float32)
         proposals = transforms.bbox_clip(proposals, window)
         
-        # Normalize
+        # Normalize, (y1, x1, y2, x2)
         proposals = proposals / tf.constant([H, W, H, W], dtype=tf.float32)
         
-        # NMS
+        # NMS, indices: [2000]
         indices = tf.image.non_max_suppression(
             proposals, rpn_probs, self.proposal_count, self.nms_threshold)
-        proposals = tf.gather(proposals, indices)
+        proposals = tf.gather(proposals, indices) # [2000, 4]
         
         if with_probs:
             proposal_probs = tf.expand_dims(tf.gather(rpn_probs, indices), axis=1)

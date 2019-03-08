@@ -102,10 +102,10 @@ class FasterRCNN(tf.keras.Model, RPNTestMixin, BBoxTestMixin):
             max_instances=self.RCNN_MAX_INSTANCES,
             name='b_box_head')
 
-    def __call__(self, inputs, training=True):
+    def call(self, inputs, training=True):
         """
 
-        :param inputs:
+        :param inputs: [1, 1216, 1216, 3], [1, 11], [1, 14, 4], [1, 14]
         :param training:
         :return:
         """
@@ -113,32 +113,32 @@ class FasterRCNN(tf.keras.Model, RPNTestMixin, BBoxTestMixin):
             imgs, img_metas, gt_boxes, gt_class_ids = inputs
         else: # inference
             imgs, img_metas = inputs
-
+        # [1, 304, 304, 256] => [1, 152, 152, 512]=>[1,76,76,1024]=>[1,38,38,2048]
         C2, C3, C4, C5 = self.backbone(imgs, 
                                        training=training)
-        
+        # [1, 304, 304, 256] <= [1, 152, 152, 256]<=[1,76,76,256]<=[1,38,38,256]=>[1,19,19,256]
         P2, P3, P4, P5, P6 = self.neck([C2, C3, C4, C5], 
                                        training=training)
         
         rpn_feature_maps = [P2, P3, P4, P5, P6]
         rcnn_feature_maps = [P2, P3, P4, P5]
-
+        # [1, 369303, 2] [1, 369303, 2], [1, 369303, 4], includes all anchors on pyramid level of features
         rpn_class_logits, rpn_probs, rpn_deltas = self.rpn_head(
             rpn_feature_maps, training=training)
-        
+        # [369303, 4] => [215169, 4], valid => [6000, 4], performance =>[2000, 4],  NMS
         proposals_list = self.rpn_head.get_proposals(
             rpn_probs, rpn_deltas, img_metas)
         
-        if training:
+        if training: # get target value for these proposal target label and target delta
             rois_list, rcnn_target_matchs_list, rcnn_target_deltas_list = \
                 self.bbox_target.build_targets(
                     proposals_list, gt_boxes, gt_class_ids, img_metas)
         else:
             rois_list = proposals_list
-            
-        pooled_regions_list = self.roi_align(
+        # rois_list only contains coordinates, rcnn_feature_maps save the 5 features data=>[192,7,7,256]
+        pooled_regions_list = self.roi_align(#
             (rois_list, rcnn_feature_maps, img_metas), training=training)
-
+        # [192, 81], [192, 81], [192, 81, 4]
         rcnn_class_logits_list, rcnn_probs_list, rcnn_deltas_list = \
             self.bbox_head(pooled_regions_list, training=training)
 

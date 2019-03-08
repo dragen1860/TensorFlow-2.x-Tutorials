@@ -8,9 +8,7 @@ import visualize
 
 
 
-# eager execution
-tf.enable_eager_execution()
-tf.executing_eagerly()
+
 print(tf.__version__)
 
 
@@ -18,9 +16,7 @@ print(tf.__version__)
 # memory region needed by the TensorFlow process
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-config = tf.ConfigProto()
-config.gpu_options.allow_growth = True
-session = tf.Session(config=config)
+
 
 
 # #### load dataset

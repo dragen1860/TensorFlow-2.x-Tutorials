@@ -132,10 +132,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="64" />
-    <option name="y" value="17" />
-    <option name="width" value="1857" />
-    <option name="height" value="1064" />
+    <option name="x" value="1985" />
+    <option name="y" value="88" />
+    <option name="width" value="1853" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -174,7 +174,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tf_overview">
+  <component name="RunManager" selected="Python.assign_test">
+    <configuration name="assign_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tmp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/assign_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tmp" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -255,6 +276,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.assign_test" />
         <item itemvalue="Python.tf_overview" />
         <item itemvalue="Python tests.pytest for tf_overview.test" />
         <item itemvalue="Python.variable_tensor" />
