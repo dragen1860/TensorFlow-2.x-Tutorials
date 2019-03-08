@@ -1,6 +1,6 @@
 # TensorFlow 2.0 Tutorials
 
-![2.0](res/tensorflow-2.0.jpg)
+![2.0](res/tensorflow-2.0.gif)
 
 Timeline:
 - Mar. 7, 2019: [Tensorflow 2.0 Alpha](https://www.tensorflow.org/alpha)
@@ -9,7 +9,6 @@ Timeline:
 
 
 # Installation
-
 
 
 1. CPU install
