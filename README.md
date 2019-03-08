@@ -1,6 +1,6 @@
 # TensorFlow 2.0 Tutorials
  
-<img src="res/tensorflow-2.0.gif" width="300" align="middle">
+<center><img src="res/tensorflow-2.0.gif" width="250" align="middle"></center>
 
 Timeline:
 - Mar. 7, 2019: [Tensorflow 2.0 Alpha](https://www.tensorflow.org/alpha)
