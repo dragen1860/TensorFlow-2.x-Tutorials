@@ -33,18 +33,18 @@ class RNN(keras.Model):
     def __init__(self, units, num_classes, num_layers):
         super(RNN, self).__init__()
 
-<<<<<<< HEAD
+
         # self.cells = [keras.layers.LSTMCell(units) for _ in range(num_layers)]
         #
         # self.rnn = keras.layers.RNN(self.cells, unroll=True)
         self.rnn = keras.layers.LSTM(units, unroll=True)
-=======
-        self.cells = (keras.layers.LSTMCell(units) for _ in range(num_layers))
-        #
-        self.rnn = keras.layers.RNN(self.cells, return_sequences=True, return_state=True)
+
+        # self.cells = (keras.layers.LSTMCell(units) for _ in range(num_layers))
+        # #
+        # self.rnn = keras.layers.RNN(self.cells, return_sequences=True, return_state=True)
         # self.rnn = keras.layers.LSTM(units, unroll=True)
         # self.rnn = keras.layers.StackedRNNCells(self.cells)
->>>>>>> 6d45d5133fba52162effc783924a0d58f6b4e96c
+
 
         # have 1000 words totally, every word will be embedding into 100 length vector
         # the max sentence lenght is 80 words
