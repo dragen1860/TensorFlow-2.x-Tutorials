@@ -8,8 +8,13 @@ def prepare_mnist_features_and_labels(x, y):
   y = tf.cast(y, tf.int64)
   return x, y
 
+
+
 def mnist_dataset():
-  (x, y), _ = datasets.mnist.load_data()
+  (x, y), _ = datasets.fashion_mnist.load_data()
+
+  print('x/y shape:', x.shape, y.shape)
+
   ds = tf.data.Dataset.from_tensor_slices((x, y))
   ds = ds.map(prepare_mnist_features_and_labels)
   ds = ds.take(20000).shuffle(20000).batch(100)
@@ -34,8 +39,7 @@ def compute_accuracy(logits, labels):
 def train_one_step(model, optimizer, x, y):
 
   with tf.GradientTape() as tape:
-    # watch will make these tensors traced by gradient
-    tape.watch(model.trainable_variables)
+
     logits = model(x)
     loss = compute_loss(logits, y)
 
@@ -55,8 +59,11 @@ def train(epoch, model, optimizer):
   train_ds = mnist_dataset()
   loss = 0.0
   accuracy = 0.0
+
   for step, (x, y) in enumerate(train_ds):
+
     loss, accuracy = train_one_step(model, optimizer, x, y)
+
     if step%500==0:
       print('epoch', epoch, ': loss', loss.numpy(), '; accuracy', accuracy.numpy())
   return loss, accuracy
@@ -103,17 +110,18 @@ class MyLayer(layers.Layer):
 
 
 def main():
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'  # or any {'0', '1', '2'}
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
 
     train_dataset = mnist_dataset()
 
-    model = MyLayer([28*28, 100, 100, 10])
+    model = MyLayer([28*28, 200, 200, 10])
     for p in model.trainable_variables:
         print(p.name, p.shape)
     optimizer = optimizers.Adam()
 
     for epoch in range(20):
         loss, accuracy = train(epoch, model, optimizer)
+
     print('Final epoch', epoch, ': loss', loss.numpy(), '; accuracy', accuracy.numpy())
 
 

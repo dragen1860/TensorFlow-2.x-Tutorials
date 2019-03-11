@@ -9,7 +9,7 @@ def prepare_mnist_features_and_labels(x, y):
   return x, y
 
 def mnist_dataset():
-  (x, y), _ = datasets.mnist.load_data()
+  (x, y), _ = datasets.fashion_mnist.load_data()
   ds = tf.data.Dataset.from_tensor_slices((x, y))
   ds = ds.map(prepare_mnist_features_and_labels)
   ds = ds.take(20000).shuffle(20000).batch(100)
@@ -34,8 +34,7 @@ def compute_accuracy(logits, labels):
 def train_one_step(model, optimizer, x, y):
 
   with tf.GradientTape() as tape:
-    # watch will make these tensors traced by gradient
-    tape.watch(model.trainable_variables)
+
     logits = model(x)
     loss = compute_loss(logits, y)
 
@@ -70,12 +69,11 @@ def main():
 
     model = keras.Sequential([
         layers.Reshape(target_shape=(28 * 28,), input_shape=(28, 28)),
-        layers.Dense(100, activation='relu'),
-        layers.Dense(100, activation='relu'),
+        layers.Dense(200, activation='relu'),
+        layers.Dense(200, activation='relu'),
         layers.Dense(10)])
-    # no need to use compile if you have no loss/optimizer/metrics involved here.
-    # TODO: without model.build() it can also work. why
-    # model.build()
+
+
     optimizer = optimizers.Adam()
 
     for epoch in range(20):
