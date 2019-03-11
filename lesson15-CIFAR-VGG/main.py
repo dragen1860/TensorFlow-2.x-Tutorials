@@ -106,7 +106,6 @@ def main():
             if step % 40 == 0:
                 # for g in grads:
                 #     print(tf.norm(g).numpy())
-
                 print(epoch, step, 'loss:', float(loss), 'acc:', metric.result().numpy())
                 metric.reset_states()
 
