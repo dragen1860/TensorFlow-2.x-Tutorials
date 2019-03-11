@@ -49,12 +49,8 @@ def load_image(image_file, is_train):
         # random jittering
 
         # resizing to 286 x 286 x 3
-        input_image = tf.image.resize(input_image, [286, 286],
-                                             align_corners=True,
-                                             method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
-        real_image = tf.image.resize(real_image, [286, 286],
-                                            align_corners=True,
-                                            method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+        input_image = tf.image.resize(input_image, [286, 286])
+        real_image = tf.image.resize(real_image, [286, 286])
 
         # randomly cropping to 256 x 256 x 3
         stacked_image = tf.stack([input_image, real_image], axis=0)
@@ -66,10 +62,8 @@ def load_image(image_file, is_train):
             input_image = tf.image.flip_left_right(input_image)
             real_image = tf.image.flip_left_right(real_image)
     else:
-        input_image = tf.image.resize(input_image, size=[IMG_HEIGHT, IMG_WIDTH],
-                                             align_corners=True, method=2)
-        real_image = tf.image.resize(real_image, size=[IMG_HEIGHT, IMG_WIDTH],
-                                            align_corners=True, method=2)
+        input_image = tf.image.resize(input_image, size=[IMG_HEIGHT, IMG_WIDTH])
+        real_image = tf.image.resize(real_image, size=[IMG_HEIGHT, IMG_WIDTH])
 
     # normalizing the images to [-1, 1]
     input_image = (input_image / 127.5) - 1
