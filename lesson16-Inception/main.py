@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[15]:
-
-
 import  os
 import  tensorflow as tf
 import  numpy as np
