@@ -49,8 +49,8 @@ class AnchorGenerator:
             for level, feature_shape in enumerate(feature_shapes)
         ] # [277248, 4], [69312, 4], [17328, 4], [4332, 4], [1083, 4]
         anchors = tf.concat(anchors, axis=0) # [369303, 4]
-        print('total anchors:', anchors.shape)
-        print('---------')
+        # print('total anchors:', anchors.shape)
+        # print('---------')
 
         # generate valid flags
         img_shapes = calc_img_shapes(img_metas) # (800, 1067)
@@ -167,8 +167,8 @@ class AnchorGenerator:
         # Convert to corner coordinates (y1, x1, y2, x2) [304x304, 3, 4] => [277448, 4]
         boxes = tf.concat([box_centers - 0.5 * box_sizes,
                            box_centers + 0.5 * box_sizes], axis=1)
-        print('scale:', scale)
-        print('ratios:', ratios)
-        print('pos:', shifts_x.shape, shifts_y.shape)
-        print('boxes:', boxes.shape)
+        # print('scale:', scale)
+        # print('ratios:', ratios)
+        # print('pos:', shifts_x.shape, shifts_y.shape)
+        # print('boxes:', boxes.shape)
         return boxes

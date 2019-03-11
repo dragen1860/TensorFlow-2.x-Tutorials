@@ -31,8 +31,7 @@ python train_model.py
 - Step4. You may need to check `train_model.ipynb` and `inspect_model.ipynb` for some insight since Faster-RCNN is a really huge project.
 
 
-# Screenshot
-![](shot.png)
+
 
 
 
