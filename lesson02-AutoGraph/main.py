@@ -11,15 +11,21 @@ cell = tf.keras.layers.LSTMCell(10)
 
 @tf.function
 def fn(input, state):
+    """
+    use static graph to compute LSTM
+    :param input:
+    :param state:
+    :return:
+    """
 
     return cell(input, state)
 
 
 
 input = tf.zeros([10, 10])
-state = [tf.zeros([10, 10])]*2
+state = [tf.zeros([10, 10])] * 2
 
-
+# warmup
 cell(input, state)
 fn(input, state)
 
