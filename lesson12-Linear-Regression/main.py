@@ -51,12 +51,11 @@ def main():
     criteon = keras.losses.MeanSquaredError()
     optimizer = keras.optimizers.Adam(learning_rate=1e-2)
 
-    for epoch in range(100):
+    for epoch in range(200):
 
         for step, (x, y) in enumerate(db_train):
 
             with tf.GradientTape() as tape:
-
                 # [b, 1]
                 logits = model(x)
                 # [b]
@@ -80,7 +79,7 @@ def main():
                 # [b] vs [b]
                 loss = criteon(y, logits)
 
-                print(epoch, 'val:', loss.numpy())
+                print(epoch, 'val loss:', loss.numpy())
 
 
 
