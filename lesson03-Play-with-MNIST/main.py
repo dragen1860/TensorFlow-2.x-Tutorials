@@ -44,7 +44,7 @@ for step, (x,y) in enumerate(db):
     optimizer.apply_gradients(zip(grads, network.trainable_variables))
 
 
-    if step%200==0:
+    if step % 200==0:
 
         print(step, 'loss:', float(loss), 'acc:', acc_meter.result().numpy())
         acc_meter.reset_states()
