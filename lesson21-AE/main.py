@@ -104,9 +104,8 @@ for epoch in range(num_epochs):
             reconstruction_loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=x, logits=x_reconstruction_logits)
             reconstruction_loss = tf.reduce_sum(reconstruction_loss) / batch_size
 
-        gradients = tape.gradient(reconstruction_loss, model.trainable_variables)
-        for g in gradients:
-            tf.clip_by_norm(g, 15)
+        gradients = tape.gradient(reconstruction_loss, model.trainable_variables) 
+        gradients,_ = tf.clip_by_global_norm(gradients, 15)
         optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
         if (step + 1) % 50 == 0:
