@@ -34,7 +34,7 @@ def test(model, eval_data):
 
 
 
-def train_one_epoch(model, optimizer, train_data, log_interval=10):
+def train_one_epoch(model, optimizer, train_data, log_interval, epoch):
     """
     Trains model on train_data using optimizer.
     """
@@ -51,7 +51,7 @@ def train_one_epoch(model, optimizer, train_data, log_interval=10):
 
 
         if step % 100 == 0:
-            print(step, 'loss:', float(loss))
+            print(epoch, step, 'loss:', float(loss))
 
 
 SOURCE_TRAIN_URL = "https://raw.githubusercontent.com/random-forests/tensorflow-workshop/master/archive/extras/colorbot/data/train.csv"
@@ -81,7 +81,7 @@ def main():
     for epoch in range(epochs):
 
         start = time.time()
-        train_one_epoch(model, optimizer, train_data, 50)
+        train_one_epoch(model, optimizer, train_data, 50, epoch)
         end = time.time()
         # print("train/time for epoch #%d: %.2f" % (epoch, end - start))
 
