@@ -38,7 +38,7 @@ Out[4]: True
 ```
 
  
-# Outline
+# Includes
 
 - TensorFlow 2.0 overview
 - TensorFlow 2.0 Basic Usage
