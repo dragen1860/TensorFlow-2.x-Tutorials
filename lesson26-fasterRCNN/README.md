@@ -12,12 +12,7 @@ Faster R-CNN R-101-FPN model was implemented with tensorflow 2.0.
 
 # HowTo
 
-- Step1. Download pretrained model from 
-
-[Google Drive](https://drive.google.com/open?id=12gh8ei9w6MeAXXIxONNR-xdEdTJ8Zkko)
-[百度网盘](https://pan.baidu.com/s/1I5PGkpvnDSduJnngoWuktQ)
-
-and put it in `weights/faster_rcnn.h5` directory.
+- Step1. Download pretrained model from [Google Drive](https://drive.google.com/open?id=12gh8ei9w6MeAXXIxONNR-xdEdTJ8Zkko) or [百度网盘](https://pan.baidu.com/s/1I5PGkpvnDSduJnngoWuktQ) and put it in `weights/faster_rcnn.h5` directory.
 
 - Step2. `pip install required packages` according to your system prompts.
 
@@ -25,10 +20,9 @@ and put it in `weights/faster_rcnn.h5` directory.
 
 ```
 python train_model.py
-
 ```
 
-- Step4. You may need to check `train_model.ipynb` and `inspect_model.ipynb` for some insight since Faster-RCNN is a really huge project.
+- Step4. You may need to check `train_model.ipynb` and `inspect_model.ipynb` for some insight Since Faster-RCNN is a really huge project.
 
 
 # Screenshot
