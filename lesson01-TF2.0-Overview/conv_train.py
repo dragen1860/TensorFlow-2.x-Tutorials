@@ -1,13 +1,17 @@
-import os
-import time
-import numpy as np
-import tensorflow as tf
-from tensorflow.python.ops import summary_ops_v2
+import  os
+import  time
+import  numpy as np
+import  tensorflow as tf
+from    tensorflow.python.ops import summary_ops_v2
 
-from tensorflow import keras
-from tensorflow.keras import datasets, layers, models, optimizers, metrics
+from    tensorflow import keras
+from    tensorflow.keras import datasets, layers, models, optimizers, metrics
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'  # or any {'0', '1', '2'}
+
+
+
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
 
 model = tf.keras.Sequential([
     layers.Reshape(
@@ -23,11 +27,10 @@ model = tf.keras.Sequential([
     layers.Dense(10)])
 
 compute_loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
-
 compute_accuracy = tf.keras.metrics.SparseCategoricalAccuracy()
 optimizer = optimizers.SGD(learning_rate=0.01, momentum=0.5)
 
-# Set up datasets
+
 def mnist_datasets():
     (x_train, y_train), (x_test, y_test) = datasets.mnist.load_data()
     # Numpy defaults to dtype=float64; TF defaults to float32. Stick with float32.
@@ -41,24 +44,27 @@ def mnist_datasets():
 train_ds, test_ds = mnist_datasets()
 train_ds = train_ds.shuffle(60000).batch(100)
 test_ds = test_ds.batch(100)
-print('Dataset  shape: {}'.format(train_ds.output_shapes))
 
 
 def train_step(model, optimizer, images, labels):
+
     # Record the operations used to compute the loss, so that the gradient
     # of the loss with respect to the variables can be computed.
     with tf.GradientTape() as tape:
         logits = model(images, training=True)
         loss = compute_loss(labels, logits)
         compute_accuracy(labels, logits)
+
     grads = tape.gradient(loss, model.trainable_variables)
     optimizer.apply_gradients(zip(grads, model.trainable_variables))
+
     return loss
 
 
 def train(model, optimizer, dataset, log_freq=50):
-    """Trains model on `dataset` using `optimizer`."""
-    start = time.time()
+    """
+    Trains model on `dataset` using `optimizer`.
+    """
     # Metrics are stateful. They accumulate values and return a cumulative
     # result when you call .result(). Clear accumulated values with .reset_states()
     avg_loss = metrics.Mean('loss', dtype=tf.float32)
@@ -71,17 +77,16 @@ def train(model, optimizer, dataset, log_freq=50):
         if tf.equal(optimizer.iterations % log_freq, 0):
             # summary_ops_v2.scalar('loss', avg_loss.result(), step=optimizer.iterations)
             # summary_ops_v2.scalar('accuracy', compute_accuracy.result(), step=optimizer.iterations)
-            print('loss:', avg_loss.result().numpy(), 'acc:', compute_accuracy.result().numpy())
+            print('step:', int(optimizer.iterations),
+                  'loss:', avg_loss.result().numpy(),
+                  'acc:', compute_accuracy.result().numpy())
             avg_loss.reset_states()
             compute_accuracy.reset_states()
 
-            rate = log_freq / (time.time() - start)
-            print('Step #%d\tLoss: %.6f (%d steps/sec)' % (int(optimizer.iterations), loss, rate))
-            start = time.time()
-
-
 def test(model, dataset, step_num):
-    """Perform an evaluation of `model` on the examples from `dataset`."""
+    """
+    Perform an evaluation of `model` on the examples from `dataset`.
+    """
     avg_loss = metrics.Mean('loss', dtype=tf.float32)
 
     for (images, labels) in dataset:
@@ -112,8 +117,7 @@ apply_clean()
 checkpoint_dir = os.path.join(MODEL_DIR, 'checkpoints')
 checkpoint_prefix = os.path.join(checkpoint_dir, 'ckpt')
 
-checkpoint = tf.train.Checkpoint(
-    model=model, optimizer=optimizer)
+checkpoint = tf.train.Checkpoint(model=model, optimizer=optimizer)
 
 # Restore variables on creation if a checkpoint exists.
 checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
@@ -133,17 +137,6 @@ for i in range(NUM_TRAIN_EPOCHS):
     print('saved checkpoint.')
 
 export_path = os.path.join(MODEL_DIR, 'export')
-
 tf.saved_model.save(model, export_path)
 print('saved SavedModel for exporting.')
 
-
-# def import_and_eval():
-#     restored_model = tf.saved_model.restore(export_path)
-#     _, (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-#     x_test = x_test / np.float32(255)
-#     y_predict = restored_model(x_test)
-#     accuracy = compute_accuracy(y_test, y_predict)
-#     print('Model accuracy: {:0.2f}%'.format(accuracy.result() * 100))
-#
-# import_and_eval()
