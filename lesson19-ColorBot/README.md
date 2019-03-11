@@ -15,6 +15,7 @@ python main.py
 ```
 
 - Step2. Input a color name and end with `Enter` key. such as `red`, `blue`, `purple`.
-![color](shot.png)
+
+![color](./shot.png)
 
 - Step3. `Enter` to exit.
