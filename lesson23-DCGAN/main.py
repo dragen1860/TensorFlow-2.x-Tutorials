@@ -144,7 +144,7 @@ def main():
 
         if epoch % 100 == 0:
 
-            print(epoch, float(d_loss), float(g_loss))
+            print(epoch, 'd loss:', float(d_loss), 'g loss:', float(g_loss))
 
             # validation results at every epoch
             val_z = np.random.uniform(-1, 1, size=(val_size, z_dim))
