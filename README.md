@@ -1,5 +1,4 @@
-# TensorFlow 2.0 Tutorials
- 
+# TensorFlow 2.0 Tutorials 
 
 <p align="center">
   <img src="res/tensorflow-2.0.gif" width="250" align="middle">
@@ -44,21 +43,23 @@ Out[4]: True
 - TensorFlow 2.0 overview
 - TensorFlow 2.0 Basic Usage
 - Linear Regression
-- MNIST
+- MNIST, FashionMNIST
 - CIFAR10
 - Fully Connected Layer
+- VGG16
 - Inception Network
-- ResNet
+- ResNet18
 - Naive RNN
 - LSTM
 - ColorBot
 - Auto-Encoders
 - Variational Auto-Encoders
-- GAN
+- DCGAN
 - CycleGAN
 - WGAN
 - Pixel2Pixel
 - Faster RCNN
+- A2C
 
 and more is waiting to be updated!
  
@@ -67,13 +68,14 @@ and more is waiting to be updated!
 
 # Refered Repos.
 
-Our work is not built from scratch. Great appreciatoin to these open works！
+Our work is not built from scratch. Great appreciation to these open works！
 
 - https://github.com/madalinabuzau/tensorflow-eager-tutorials
 - https://github.com/herbiebradley/CycleGAN-Tensorflow
 - https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/eager/python/examples/pix2pix/pix2pix_eager.ipynb
 - https://github.com/moono/tf-eager-on-GAN
 - https://github.com/Viredery/tf-eager-fasterrcnn
+- https://github.com/github/gitignore/blob/master/Python.gitignore
 
 # Acknowledgement
 - 爱可可-爱生活 友情推荐 ![](res/weibo.jpg)
