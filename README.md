@@ -77,6 +77,13 @@ Our work is not built from scratch. Great appreciation to these open works！
 - https://github.com/Viredery/tf-eager-fasterrcnn
 - https://github.com/github/gitignore/blob/master/Python.gitignore
 
+
+# 人工智能学习交流
+请加QQ群：295208768
+二维码：
+<img src="res/ai101.jpg" width="300"/>
+
+
 # Acknowledgement
 - 爱可可-爱生活 友情推荐 ![](res/weibo.jpg)
 
