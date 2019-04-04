@@ -81,8 +81,11 @@ Our work is not built from scratch. Great appreciation to these open works！
 
 # 人工智能学习交流
 请加QQ群：295208768
+
 二维码：
 <img src="res/ai101.jpg" width="100"/>
+
+TensorFlow 2.0的视频教程推荐：[深度学习与TensorFlow实战](https://study.163.com/course/courseMain.htm?share=2&shareId=480000001847407&courseId=1209092816&_trace_c_p_k2_=dca16f8fd11a4525bac8c89f779b2cfa)
 
 
 # Acknowledgement
