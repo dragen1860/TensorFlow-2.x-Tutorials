@@ -125,3 +125,57 @@ class Attention(keras.Model):
         a = self.c_proj(a)
         a = self.resid_dropout(a)
         return a
+
+
+class MLP(keras.Model):
+
+    def __init__(self, n_state=3072, cfg): # n_state=3072 (4*n_embd)
+        super(MLP, self).__init__()
+        nx = cfg.n_embd
+        self.c_fc = Conv1D(n_state, 1, nx)
+        self.c_proj = Conv1D(nx, 1, n_state)
+        self.act = ACT_FNS[cfg.afn]
+        self.dropout = keras.layers.Dropout(cfg.resid_pdrop)
+    
+    def call(self, x):
+        h = self.act(self.c_fc(x))
+        h2 = self.c_proj(h)
+        return self.dropout(h2)
+
+
+class Block(keras.Model):
+
+    def __init__(self, n_ctx, cfg, scale=False):
+        def __init__(self, n_ctx, cfg, scale=False):
+        super(Block, self).__init__()
+        nx = cfg.n_embd
+        self.attn = Attention(nx, n_ctx, cfg, scale)
+        self.ln_1 = LayerNorm(nx)
+        self.mlp = MLP(4 * nx, cfg)
+        self.ln_2 = LayerNorm(nx)
+    
+    def call(self, x):
+        a = self.attn(x)
+        n = self.ln_1(x + a)
+        m = self.mlp(n)
+        h = self.ln_2(n + m)
+        return 
+
+
+class TransformerModel(keras.Model):
+
+    def __init__(self, cfg, vocab=40990, n_ctx=512):
+        super(TransformerModel, self).__init__()
+        self.vocab = vocab
+        self.embed = keras.layers.Embedding(vocab, cfg.n_embd)
+        self.drop = keras.layers.Dropout(cfg.embd_pdrop)
+        self.h = [Block(n_ctx, cfg, scale=True) for _ in range(cfg.n_layer)]
+
+    def call(self, x):
+        x = tf.reshape(x, [-1,x.shape[-2],x.shape[-1]])
+        e = self.drop(self.embed(x))
+        # Add the position information to input embeddings
+        h = tf.reduce_sum(e, 2)
+        for block in self.h:
+            h = block(h)
+        return h
