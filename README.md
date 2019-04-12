@@ -62,7 +62,7 @@ Out[4]: True
 - Faster RCNN
 - A2C
 
-and more is waiting to be updated!
+Feel free to submit a **PR** request to make this repo. more complete!
  
 
 
