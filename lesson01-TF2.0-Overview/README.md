@@ -1,14 +1,16 @@
 # TensorFlow Overview
 
-simple MNIST exmples to show major features of TensorFlow 2.0
+A quick overview of MNIST examples to get familiar with major features of TensorFlow 2.0
 
 # HowTO
-train MNIST with Fully Connected Network.
+Train MNIST with a **fully connected network**:
 ```
 python fc_train.py
 ```
 
-train MNIST with conv2d network
+Train MNIST with a **convolutional network**:
 ```
 python conv_train.py
 ```
+
+![](features.png)
