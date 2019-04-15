@@ -1,14 +1,20 @@
 # TensorFlow Overview
 
-simple MNIST exmples to show major features of TensorFlow 2.0
+A quick look at some MNIST examples to get familiar with the core features of TensorFlow 2.0:
+
+- **tf.keras:** A high-level, object-oriented API for fast prototyping of deep learning models
+- **tf.GradientTape:** Records gradients on-the-fly for automatic differentiation and backprop
+- **tf.train:** Optimizers for training and checkpoints for exporting models
 
 # HowTO
-train MNIST with Fully Connected Network.
+Train MNIST with a **fully connected network**:
 ```
 python fc_train.py
 ```
 
-train MNIST with conv2d network
+Train MNIST with a **convolutional network**:
 ```
 python conv_train.py
 ```
+
+![](features.png)
