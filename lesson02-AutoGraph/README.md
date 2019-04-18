@@ -37,7 +37,9 @@ def loss_fn(inputs, labels):
 SGD_Trainer.minimize(loss_fn, var_list=ReLU_Layer.weights+Logit_Layer.weights)
 ```
 
-![](graph.png)
+<p align="center">
+<img src="graph.gif">
+</p>
 
 # HowTO
 
