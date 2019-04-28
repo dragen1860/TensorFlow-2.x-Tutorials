@@ -13,6 +13,7 @@ Timeline:
 
 # Installation
 
+make sure you are using python 3.x.
 
 1. CPU install
 ```python
