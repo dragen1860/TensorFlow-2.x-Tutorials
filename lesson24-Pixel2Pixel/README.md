@@ -7,7 +7,7 @@ Here implemented a popular Pixel2Pixel model on facades datasets.
 This model may requires a large GPU memory.
 
 ```
-# cd the project dir
+cd the project dir
 mkdir images
 python main.py
-``
+```
