@@ -1,7 +1,13 @@
 # Inception Network
 
+Here we train a tf.keras implementation of InceptionV3 on MNIST.
 
-Here implemented a Inception network training on MNIST dataset.
+<<<<<<< HEAD
+Includes cell dividers for IPython / Jupyter notebook compatibility!
+
+=======
+>>>>>>> 6debeee6408827f41ab14d907170f5c1b633701a
+![](inception.png)
 
 # HowTO
 

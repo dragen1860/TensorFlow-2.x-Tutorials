@@ -4,7 +4,7 @@ import  numpy as np
 from    tensorflow import keras
 
 
-# In[16]:
+# In[1]:
 
 
 tf.random.set_seed(22)
@@ -13,7 +13,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 assert tf.__version__.startswith('2.')
 
 
-# In[17]:
+# In[2]:
 
 
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
@@ -24,14 +24,14 @@ x_train, x_test = np.expand_dims(x_train, axis=3), np.expand_dims(x_test, axis=3
 db_train = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(256)
 db_test = tf.data.Dataset.from_tensor_slices((x_test, y_test)).batch(256)
 
-# In[19]:
+# In[3]:
 
 
 print(x_train.shape, y_train.shape)
 print(x_test.shape, y_test.shape)
 
 
-# In[26]:
+# In[4]:
 
 
 class ConvBNRelu(keras.Model):
@@ -56,7 +56,7 @@ class ConvBNRelu(keras.Model):
         
 
 
-# In[27]:
+# In[5]:
 
 
 class InceptionBlk(keras.Model):
@@ -95,7 +95,7 @@ class InceptionBlk(keras.Model):
         return x
 
 
-# In[28]:
+# In[6]:
 
 
 class Inception(keras.Model):
@@ -146,7 +146,7 @@ class Inception(keras.Model):
         
 
 
-# In[29]:
+# In[7]:
 
 
 # build model and optimizer

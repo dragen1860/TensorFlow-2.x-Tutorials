@@ -1,7 +1,7 @@
 
 # CIFAR10-VGG16
 
-Fitting a pretrained VGG-16 network to CIFAR-10 for image classification!
+Fitting a VGG-16 network on CIFAR-10 for image classification!
 We use gradient clipping for faster convergence.
 
 A complete implementation is of VGG-16 available in network.py
