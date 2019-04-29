@@ -1,13 +1,16 @@
 
-# CIAFAR10-VGG16
+# CIFAR10-VGG16
 
-Training VGG16 network on CIFAR10 dataset.
-network.py imlemented a complete VGG16 network.
+Fitting a pretrained VGG-16 network to CIFAR-10 for image classification!
+We use gradient clipping for faster convergence.
 
-We use gradient clipping to make it converge better.
+A complete implementation is of VGG-16 available in network.py
+
+![](vgg16.png)
 
 # HowTO
-This code will download CIFAR10 dataset automatically.
+CIFAR-10 will be downloaded automatically if it is not found.
+
 Simply run:
 ```
 python main.py
