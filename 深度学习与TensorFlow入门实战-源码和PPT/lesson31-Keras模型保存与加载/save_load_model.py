@@ -52,8 +52,12 @@ network.save('model.h5')
 print('saved total model.')
 del network
 
-print('load model from file')
-network = tf.keras.models.load_model('model.h5') 
+print('loaded model from file.')
+network = tf.keras.models.load_model('model.h5', compile=False)
+network.compile(optimizer=optimizers.Adam(lr=0.01),
+        loss=tf.losses.CategoricalCrossentropy(from_logits=True),
+        metrics=['accuracy']
+    )
 x_val = tf.cast(x_val, dtype=tf.float32) / 255.
 x_val = tf.reshape(x_val, [-1, 28*28])
 y_val = tf.cast(y_val, dtype=tf.int32)
