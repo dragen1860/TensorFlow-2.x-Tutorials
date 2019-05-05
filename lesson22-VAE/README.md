@@ -1,7 +1,8 @@
 # Varitional Auto-Encoders
 
+In this lesson, we implement a variational autoencoder to reconstruct and generate new MNIST images.
 
-Simple 2 layers Encoders and 2 layers Decoders to reconstruct MNIST images.
+![](variational_autoencoder.png)
 
 # HowTo
 
