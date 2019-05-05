@@ -1,13 +1,13 @@
 # Sentiment Analysis
 
-Sentiment Analysis on IMDB dataset.
+RNN for Sentiment Analysis!
 
-Here implement Sentiment Analysis problem using stacked LSTM layer.
+In this lesson, we implement a stacked Long-Short Term Memory (LSTM) recurrent neural network for Sentiment Analysis on the IMDB text dataset.
 
+![](imdb.png)
 
 # HowTO
-The code will download IMDB text automatically from google cloud. 
-Make sure you can access google.
+IMDB text data will automatically be downloaded from Google Cloud, so make sure you're connected to the internet and able to access Google services.
 
 ```
 python main.py
