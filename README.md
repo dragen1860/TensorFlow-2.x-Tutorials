@@ -13,7 +13,6 @@ Timeline:
 
 # Installation
 
-make sure you are using python 3.x.
 
 1. CPU install
 ```python
@@ -21,9 +20,6 @@ pip install tensorflow==2.0.0-alpha0
 ```
 
 2. GPU install
-
-Install `CUDA 10.0`(or after) and `cudnn` by yourself. and set `LD_LIBRARY_PATH` up.
-
 ```python
 pip install tensorflow-gpu==2.0.0-alpha0
 ```

@@ -8,7 +8,5 @@ In this lesson, we implement a convolutional Pixel2Pixel model and train it on t
 This model may require a lot of GPU memory.
 
 ```
-cd the project dir
-mkdir images
 python main.py
-```
+``
