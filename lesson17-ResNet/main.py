@@ -4,7 +4,7 @@ import  numpy as np
 from    tensorflow import keras
 
 
-# In[16]:
+# In[1]:
 
 
 tf.random.set_seed(22)
@@ -24,7 +24,7 @@ x_train, x_test = np.expand_dims(x_train, axis=3), np.expand_dims(x_test, axis=3
 y_train_ohe = tf.one_hot(y_train, depth=10).numpy()
 y_test_ohe = tf.one_hot(y_test, depth=10).numpy()
 
-# In[19]:
+# In[2]:
 
 
 print(x_train.shape, y_train.shape)
@@ -128,6 +128,8 @@ class ResNet(keras.Model):
 
 
         return out
+
+# In[3]:
 
 def main():
     num_classes = 10

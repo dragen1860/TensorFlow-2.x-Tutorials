@@ -1,7 +1,8 @@
 # DCGAN
 
-Here implemented a simplified version of DCGAN.
+In this lesson, we implement the Deep Convolutional Generative Adversarial Network (DCGAN) for adversarial image generation.
 
+![](dcgan.png)
 
 # HOWTO
 

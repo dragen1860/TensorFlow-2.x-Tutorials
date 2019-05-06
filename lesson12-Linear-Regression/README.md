@@ -1,11 +1,13 @@
 
 # Linear Regression
 
-Boston housing price prediction problem.
+Linear regression for Boston housing price prediction.
 
-Implement linear regression by sub-class keras.layers.Layer.
+Let's implement a linear regressor with tf.keras.layers.Layer
 
-# HowTo
+![](linear_regression.png)
+
+# HowTO
 
 ```
 python main.py

@@ -1,21 +1,20 @@
 # Color Robot
 
-A simple Color Robot which can draw specific color image give color name.
+A simple Color Robot that can visualize colors when given color names.
 
-Here implemented color robot use stacked LSTM and it can accept use input color name and then draw corresponding
-color image.
+We implement a stacked LSTM that generates RGB colors from color name text data.
 
 # HowTO
 
-This code will download color dataset automatically.
+The code will download the ColorBot dataset automatically.
 
-- Step1. train for 40 epoches.
+- Step 1: train for 40 epoches.
 ```
 python main.py
 ```
 
-- Step2. Input a color name and end with `Enter` key. such as `red`, `blue`, `purple`.
+- Step 2: Type in a color name, like `red`, `blue`, or `purple`, and hit `Enter`!
 
 ![color](./shot.png)
 
-- Step3. `Enter` to exit.
+- Step 3: Press `Enter` to exit.

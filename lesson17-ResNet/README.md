@@ -1,9 +1,12 @@
 # ResNet 
 
-Here implemented ResNet18 network training on Fashion dataset.
+Here we train a tf.keras implementation of ResNet-18 on Fashion-MNIST.
 
+Includes cell dividers for running with IPython!
 
-# HowTo
+![](resnet.jpeg)
+
+# HowTO
 
 ```
 python main.py

@@ -1,7 +1,8 @@
 # Auto-Encoders
 
+In this lesson, we implement a simple dense autoencoder to reconstruct MNIST images.
 
-Simple 2 layers Encoders and 2 layers Decoders to reconstruct MNIST images.
+![](autoencoder.png)
 
 # HowTo
 
