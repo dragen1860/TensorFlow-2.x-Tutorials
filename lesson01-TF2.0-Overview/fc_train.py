@@ -1,16 +1,9 @@
-import  os
-import  tensorflow as tf
-from    tensorflow import keras
-from    tensorflow.keras import layers, optimizers, datasets
+import os
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers, optimizers, datasets
 
-
-
-
-
-def prepare_mnist_features_and_labels(x, y):
-  x = tf.cast(x, tf.float32) / 255.0
-  y = tf.cast(y, tf.int64)
-  return x, y
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
 
 def mnist_dataset():
   (x, y), _ = datasets.mnist.load_data()
@@ -19,17 +12,34 @@ def mnist_dataset():
   ds = ds.take(20000).shuffle(20000).batch(100)
   return ds
 
+@tf.function
+def prepare_mnist_features_and_labels(x, y):
+  x = tf.cast(x, tf.float32) / 255.0
+  y = tf.cast(y, tf.int64)
+  return x, y
 
+
+model = keras.Sequential([
+    layers.Reshape(target_shape=(28 * 28,), input_shape=(28, 28)),
+    layers.Dense(100, activation='relu'),
+    layers.Dense(100, activation='relu'),
+    layers.Dense(10)])
+
+optimizer = optimizers.Adam()
+
+
+@tf.function
 def compute_loss(logits, labels):
   return tf.reduce_mean(
       tf.nn.sparse_softmax_cross_entropy_with_logits(
           logits=logits, labels=labels))
 
+@tf.function
 def compute_accuracy(logits, labels):
   predictions = tf.argmax(logits, axis=1)
   return tf.reduce_mean(tf.cast(tf.equal(predictions, labels), tf.float32))
 
-
+@tf.function
 def train_one_step(model, optimizer, x, y):
 
   with tf.GradientTape() as tape:
@@ -61,25 +71,7 @@ def train(epoch, model, optimizer):
   return loss, accuracy
 
 
+for epoch in range(20):
+  loss, accuracy = train(epoch, model, optimizer)
 
-def main():
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
-
-
-    model = keras.Sequential([
-        layers.Reshape(target_shape=(28 * 28,), input_shape=(28, 28)),
-        layers.Dense(100, activation='relu'),
-        layers.Dense(100, activation='relu'),
-        layers.Dense(10)])
-
-
-    optimizer = optimizers.Adam()
-
-    for epoch in range(20):
-        loss, accuracy = train(epoch, model, optimizer)
-
-    print('Final epoch', epoch, ': loss', loss.numpy(), '; accuracy', accuracy.numpy())
-
-
-if __name__ == '__main__':
-    main()
+print('Final epoch', epoch, ': loss', loss.numpy(), '; accuracy', accuracy.numpy())

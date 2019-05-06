@@ -1,17 +1,13 @@
-import  os
-import  time
-import  numpy as np
-import  tensorflow as tf
-from    tensorflow.python.ops import summary_ops_v2
-
-from    tensorflow import keras
-from    tensorflow.keras import datasets, layers, models, optimizers, metrics
-
-
-
-
+import os
+import time
+import numpy as np
+import tensorflow as tf
+from tensorflow.python.ops import summary_ops_v2
+from tensorflow import keras
+from tensorflow.keras import datasets, layers, models, optimizers, metrics
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
+
 
 model = tf.keras.Sequential([
     layers.Reshape(
@@ -83,6 +79,7 @@ def train(model, optimizer, dataset, log_freq=50):
             avg_loss.reset_states()
             compute_accuracy.reset_states()
 
+
 def test(model, dataset, step_num):
     """
     Perform an evaluation of `model` on the examples from `dataset`.
@@ -139,4 +136,3 @@ for i in range(NUM_TRAIN_EPOCHS):
 export_path = os.path.join(MODEL_DIR, 'export')
 tf.saved_model.save(model, export_path)
 print('saved SavedModel for exporting.')
-
