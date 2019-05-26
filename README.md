@@ -87,7 +87,7 @@ Our work is not built from scratch. Great appreciation to these open works！
 
 <p align="center">
   <a href="https://study.163.com/course/courseMain.htm?share=2&shareId=480000001847407&courseId=1209092816&_trace_c_p_k2_=dca16f8fd11a4525bac8c89f779b2cfa">
-    <img src="res/cover.png">
+    <img src="res/cover.png" width="400">
   </a>
   
   <a href="https://study.163.com/course/courseMain.htm?share=2&shareId=480000001847407&courseId=1209092816&_trace_c_p_k2_=dca16f8fd11a4525bac8c89f779b2cfa">
