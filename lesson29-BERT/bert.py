@@ -7,7 +7,7 @@ from keras_pos_embd import PositionEmbedding
 from keras_layer_normalization import LayerNormalization
 from keras_transformer import get_encoders
 from keras_transformer import get_custom_objects as get_encoder_custom_objects
-from .layers import (get_inputs, get_embedding, TokenEmbedding, EmbeddingSimilarity, Masked, Extract)
+from layers import (get_inputs, get_embedding, TokenEmbedding, EmbeddingSimilarity, Masked, Extract)
 
 
 __all__ = [
