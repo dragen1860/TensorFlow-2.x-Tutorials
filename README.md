@@ -65,6 +65,9 @@ Out[4]: True
 - Pixel2Pixel
 - Faster RCNN
 - A2C
+- GPT
+- BERT
+- GCN
 
 Feel free to submit a **PR** request to make this repo. more complete!
  
@@ -81,9 +84,9 @@ Our work is not built from scratch. Great appreciation to these open works！
 - https://github.com/moono/tf-eager-on-GAN
 - https://github.com/Viredery/tf-eager-fasterrcnn
 - https://github.com/github/gitignore/blob/master/Python.gitignore
+- 
 
-
-# 人工智能学习交流
+# 配套视频教程
 
 <p align="center">
   <a href="https://study.163.com/course/courseMain.htm?share=2&shareId=480000001847407&courseId=1209092816&_trace_c_p_k2_=dca16f8fd11a4525bac8c89f779b2cfa">
@@ -95,7 +98,7 @@ Our work is not built from scratch. Great appreciation to these open works！
   </a>
 </p> 
 
-TensorFlow 2.0的视频教程推荐：[深度学习与TensorFlow 2实战](https://study.163.com/course/courseMain.htm?share=2&shareId=480000001847407&courseId=1209092816&_trace_c_p_k2_=dca16f8fd11a4525bac8c89f779b2cfa)
+TensorFlow 2.0的视频教程链接：[深度学习与TensorFlow 2实战](https://study.163.com/course/courseMain.htm?share=2&shareId=480000001847407&courseId=1209092816&_trace_c_p_k2_=dca16f8fd11a4525bac8c89f779b2cfa)
 
 
 # Acknowledgement
