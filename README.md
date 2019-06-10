@@ -5,7 +5,7 @@
 </p>
 
 Timeline:
-- Jun. 2019: [TensorFlow 2.0 Beta](https://twitter.com/fchollet/status/1134583289384120320)
+- Jun. 8, 2019: [TensorFlow 2.0 Beta](https://twitter.com/fchollet/status/1134583289384120320)
 - Mar. 7, 2019: [Tensorflow 2.0 Alpha](https://www.tensorflow.org/alpha)
 - Jan. 11, 2019: [TensorFlow r2.0 preview](https://www.tensorflow.org/versions/r2.0/api_docs/python/tf)
 - Aug. 14, 2018: [TensorFlow 2.0 is coming](https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/bgug1G6a89A)
@@ -18,7 +18,7 @@ make sure you are using python 3.x.
 
 1. CPU install
 ```python
-pip install tensorflow==2.0.0-alpha0
+pip install tensorflow==2.0.0-beta0
 ```
 
 2. GPU install
@@ -26,7 +26,7 @@ pip install tensorflow==2.0.0-alpha0
 Install `CUDA 10.0`(or after) and `cudnn` by yourself. and set `LD_LIBRARY_PATH` up.
 
 ```python
-pip install tensorflow-gpu==2.0.0-alpha0
+pip install tensorflow-gpu==2.0.0-beta0
 ```
 
 Test installation:
@@ -46,7 +46,7 @@ Out[4]: True
  
 # Includes
 
-- TensorFlow 2.0 overview
+- TensorFlow 2.0 Overview
 - TensorFlow 2.0 Basic Usage
 - Linear Regression
 - MNIST, FashionMNIST
