@@ -1,4 +1,6 @@
 # TensorFlow 2.0 Tutorials 
+Our repo. is the **Winner** of [⚡#PoweredByTF 2.0 Challenge!](https://devpost.com/software/tensorflow-2-0-tutorials)
+
 
 <p align="center">
   <img src="res/tensorflow-2.0.gif" width="250" align="middle">
@@ -10,7 +12,7 @@ Timeline:
 - Jan. 11, 2019: [TensorFlow r2.0 preview](https://www.tensorflow.org/versions/r2.0/api_docs/python/tf)
 - Aug. 14, 2018: [TensorFlow 2.0 is coming](https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/bgug1G6a89A)
 
->Our repo. is the **winner** of [⚡#PoweredByTF 2.0 Challenge!](https://devpost.com/software/tensorflow-2-0-tutorials)
+
 
 # Installation
 
