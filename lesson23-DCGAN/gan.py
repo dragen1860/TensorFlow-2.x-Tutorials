@@ -19,6 +19,7 @@ class Generator(keras.Model):
         self.conv4 = keras.layers.Conv2DTranspose(1, self.n_k, 2, 'same')
         return
 
+
     def call(self, inputs, training=None):
         # [b, 100] => [b, 3, 3, 512]
         x = tf.nn.leaky_relu(tf.reshape(self.dense1(inputs), shape=[-1, 3, 3, self.n_f]))
@@ -45,6 +46,7 @@ class Discriminator(keras.Model):
         self.flatten4 = keras.layers.Flatten()
         self.dense4 = keras.layers.Dense(1)
         return
+
 
     def call(self, inputs, training=None):
         x = tf.nn.leaky_relu(self.conv1(inputs))

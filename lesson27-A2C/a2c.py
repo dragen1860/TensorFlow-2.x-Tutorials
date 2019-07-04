@@ -25,6 +25,7 @@ class Model(tf.keras.Model):
         self.logits = kl.Dense(num_actions, name='policy_logits')
         self.dist = ProbabilityDistribution()
 
+
     def call(self, inputs):
         # inputs is a numpy array, convert to Tensor
         x = tf.convert_to_tensor(inputs)
@@ -32,6 +33,7 @@ class Model(tf.keras.Model):
         hidden_logs = self.hidden1(x)
         hidden_vals = self.hidden2(x)
         return self.logits(hidden_logs), self.value(hidden_vals)
+
 
     def action_value(self, obs):
         # executes call() under the hood
@@ -57,6 +59,7 @@ class A2CAgent:
             loss=[self._logits_loss, self._value_loss]
         )
     
+
     def train(self, env, batch_sz=32, updates=1000):
         # storage helpers for a single batch of data
         actions = np.empty((batch_sz,), dtype=np.int32)
@@ -87,6 +90,7 @@ class A2CAgent:
             logging.debug("[%d/%d] Losses: %s" % (update+1, updates, losses))
         return ep_rews
 
+
     def test(self, env, render=False):
         obs, done, ep_reward = env.reset(), False, 0
         while not done:
@@ -96,6 +100,7 @@ class A2CAgent:
             if render:
                 env.render()
         return ep_reward
+
 
     def _returns_advantages(self, rewards, dones, values, next_value):
         # next_value is the bootstrap value estimate of a future state (the critic)
@@ -108,9 +113,11 @@ class A2CAgent:
         advantages = returns - values
         return returns, advantages
     
+
     def _value_loss(self, returns, value):
         # value loss is typically MSE between value estimates and returns
         return self.params['value']*kls.mean_squared_error(returns, value)
+
 
     def _logits_loss(self, acts_and_advs, logits):
         # a trick to input actions and advantages through same API

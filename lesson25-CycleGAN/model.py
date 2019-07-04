@@ -23,6 +23,7 @@ class Encoder(keras.Model):
         self.bn2 = keras.layers.BatchNormalization()
         self.bn3 = keras.layers.BatchNormalization()
 
+
     def call(self, inputs, training=True):
         x = tf.pad(inputs, [[0, 0], [3, 3], [3, 3], [0, 0]], "REFLECT")
 
@@ -56,6 +57,7 @@ class Residual(keras.Model):
         # TODO: replace Instance Normalization for batchnorm
         self.bn1 = keras.layers.BatchNormalization()
         self.bn2 = keras.layers.BatchNormalization() 
+
 
     def call(self, inputs, training=True):
         x = tf.pad(inputs, [[0, 0], [1, 1], [1, 1], [0, 0]], "REFLECT")
@@ -91,6 +93,7 @@ class Decoder(keras.Model):
         self.bn1 = keras.layers.BatchNormalization()
         self.bn2 = keras.layers.BatchNormalization()
         self.bn3 = keras.layers.BatchNormalization()
+
 
     def call(self, inputs, training=True):
         x = self.conv1(inputs)
@@ -208,10 +211,6 @@ class Discriminator(keras.Model):
         x = self.conv5(x)
         # x = tf.nn.sigmoid(x) # use_sigmoid = not lsgan
         return x
-
-
-
-
 
 
 def discriminator_loss(disc_of_real_output, disc_of_gen_output, lsgan=True):

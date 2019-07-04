@@ -51,11 +51,11 @@ class AE(tf.keras.Model):
         # 512 => image
         self.fc4 = keras.layers.Dense(image_size)
 
+
     def encode(self, x):
         x = tf.nn.relu(self.fc1(x))
         x = (self.fc2(x))
         return x
-
 
 
     def decode_logits(self, h):
@@ -66,6 +66,7 @@ class AE(tf.keras.Model):
 
     def decode(self, h):
         return tf.nn.sigmoid(self.decode_logits(h))
+
 
     def call(self, inputs, training=None, mask=None):
         # encoder

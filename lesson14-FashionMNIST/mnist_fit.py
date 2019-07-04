@@ -11,6 +11,7 @@ def prepare_mnist_features_and_labels(x, y):
 
   return x, y
 
+
 def mnist_dataset():
   (x, y), (x_val, y_val) = datasets.fashion_mnist.load_data()
   print('x/y shape:', x.shape, y.shape)
@@ -26,10 +27,6 @@ def mnist_dataset():
   ds_val = ds_val.shuffle(10000).batch(100)
 
   return ds,ds_val
-
-
-
-
 
 
 def main():

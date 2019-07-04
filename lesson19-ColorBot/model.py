@@ -26,6 +26,7 @@ class RNNColorbot(keras.Model):
         self.cells = [keras.layers.LSTMCell(size) for size in rnn_cell_sizes]
         self.relu = keras.layers.Dense(label_dimension, activation=tf.nn.relu)
 
+
     def call(self, inputs, training=None):
         """
         Implements the RNN logic and prediction generation.

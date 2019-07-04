@@ -136,7 +136,6 @@ def discriminator_loss(disc_real_output, disc_generated_output):
     return total_disc_loss
 
 
-
 def generator_loss(disc_generated_output, gen_output, target):
 
     LAMBDA = 100
@@ -151,7 +150,6 @@ def generator_loss(disc_generated_output, gen_output, target):
     total_gen_loss = gan_loss + (LAMBDA * l1_loss)
 
     return total_gen_loss
-
 
 
 def generate_images(model, test_input, tar, epoch):

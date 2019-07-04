@@ -54,6 +54,7 @@ class RNN(keras.Model):
         self.embedding = keras.layers.Embedding(top_words, 100, input_length=max_review_length)
         self.fc = keras.layers.Dense(1)
 
+
     def call(self, inputs, training=None, mask=None):
 
         # print('x', inputs.shape)

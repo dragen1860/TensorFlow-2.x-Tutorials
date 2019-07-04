@@ -15,7 +15,6 @@ from    tensorflow.keras import regularizers
 
 class VGG16(models.Model):
 
-
     def __init__(self, input_shape):
         """
 

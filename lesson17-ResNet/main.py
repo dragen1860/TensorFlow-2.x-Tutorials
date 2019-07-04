@@ -38,6 +38,7 @@ def conv3x3(channels, stride=1, kernel=(3, 3)):
                                use_bias=False,
                             kernel_initializer=tf.random_normal_initializer())
 
+
 class ResnetBlock(keras.Model):
 
     def __init__(self, channels, strides=1, residual_path=False):
@@ -55,6 +56,7 @@ class ResnetBlock(keras.Model):
         if residual_path:
             self.down_conv = conv3x3(channels, strides, kernel=(1, 1))
             self.down_bn = tf.keras.layers.BatchNormalization()
+
 
     def call(self, inputs, training=None):
         residual = inputs
@@ -113,6 +115,7 @@ class ResNet(keras.Model):
         self.final_bn = keras.layers.BatchNormalization()
         self.avg_pool = keras.layers.GlobalAveragePooling2D()
         self.fc = keras.layers.Dense(num_classes)
+
 
     def call(self, inputs, training=None):
 

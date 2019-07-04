@@ -53,10 +53,12 @@ class VAE(tf.keras.Model):
         # h => image
         self.fc5 = keras.layers.Dense(image_size)
 
+
     def encode(self, x):
         h = tf.nn.relu(self.fc1(x))
         # mu, log_variance
         return self.fc2(h), self.fc3(h)
+
 
     def reparameterize(self, mu, log_var):
         """
@@ -70,12 +72,15 @@ class VAE(tf.keras.Model):
 
         return mu + eps * std
 
+
     def decode_logits(self, z):
         h = tf.nn.relu(self.fc4(z))
         return self.fc5(h)
 
+
     def decode(self, z):
         return tf.nn.sigmoid(self.decode_logits(z))
+
 
     def call(self, inputs, training=None, mask=None):
         # encoder

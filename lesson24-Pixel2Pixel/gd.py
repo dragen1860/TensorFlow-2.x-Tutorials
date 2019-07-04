@@ -49,6 +49,7 @@ class Upsample(keras.Model):
         if self.apply_dropout:
             self.dropout = keras.layers.Dropout(0.5)
 
+
     def call(self, x1, x2, training=None):
 
         x = self.up_conv(x1)
@@ -131,6 +132,7 @@ class DiscDownsample(keras.Model):
                                             use_bias=False)
         if self.apply_batchnorm:
             self.batchnorm = keras.layers.BatchNormalization()
+
 
     def call(self, x, training=None):
 

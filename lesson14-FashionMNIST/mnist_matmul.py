@@ -9,7 +9,6 @@ def prepare_mnist_features_and_labels(x, y):
   return x, y
 
 
-
 def mnist_dataset():
   (x, y), _ = datasets.fashion_mnist.load_data()
 
@@ -19,9 +18,6 @@ def mnist_dataset():
   ds = ds.map(prepare_mnist_features_and_labels)
   ds = ds.take(20000).shuffle(20000).batch(100)
   return ds
-
-
-
 
 
 

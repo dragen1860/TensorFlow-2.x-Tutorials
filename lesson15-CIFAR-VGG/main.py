@@ -39,6 +39,7 @@ def normalize(X_train, X_test):
     X_test = (X_test - mean) / (std + 1e-7)
     return X_train, X_test
 
+
 def prepare_cifar(x, y):
 
     x = tf.cast(x, tf.float32)
@@ -46,11 +47,11 @@ def prepare_cifar(x, y):
     return x, y
 
 
-
 def compute_loss(logits, labels):
   return tf.reduce_mean(
       tf.nn.sparse_softmax_cross_entropy_with_logits(
           logits=logits, labels=labels))
+
 
 def main():
 
@@ -124,10 +125,6 @@ def main():
                 metric.update_state(y, logits)
             print('test acc:', metric.result().numpy())
             metric.reset_states()
-
-
-
-
 
 
 

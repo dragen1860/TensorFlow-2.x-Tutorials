@@ -24,6 +24,7 @@ def random_colors(N, bright=True):
     random.shuffle(colors)
     return colors
 
+
 def display_instances(image, boxes, class_ids, class_names,
                       scores=None, title="",
                       figsize=(16, 16), ax=None):
@@ -80,6 +81,7 @@ def display_instances(image, boxes, class_ids, class_names,
 
 
     plt.imshow(image.astype(np.uint8))
+    
     
 def draw_boxes(image, boxes=None, refined_boxes=None,
                captions=None, visibilities=None,

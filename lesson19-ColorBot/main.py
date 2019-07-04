@@ -33,7 +33,6 @@ def test(model, eval_data):
     print("eval/loss: %.6f" % avg_loss.result().numpy())
 
 
-
 def train_one_epoch(model, optimizer, train_data, log_interval, epoch):
     """
     Trains model on train_data using optimizer.

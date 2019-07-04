@@ -13,11 +13,15 @@ assert tf.__version__.startswith('2.')
 def gelu(x):
     return 0.5 * x * (1 + tf.tanh(math.sqrt(2 / math.pi) * (x + 0.044715 * tf.pow(x, 3))))
 
+
 def swish(x):
     return x * tf.sigmoid(x)
- 
+
+
 class namespace():
     pass
+
+
 args = namespace()
 args.n_ctx = 512
 args.n_embd = 768
@@ -48,6 +52,7 @@ class LayerNorm(keras.Model):
         self.b = self.add_weight(shape=[n_state], initializer=zeros_init)
         self.e = e
     
+
     def call(self, x):
         u = tf.reduce_mean(x, -1, keepdims=True)
         s = tf.reduce_mean(tf.pow(x-u, 2), -1, keepdims=True)
@@ -66,6 +71,7 @@ class Conv1D(keras.Model):
             self.b = self.add_weight(shape=[nf], initializer=zeros_init)
         else:
             raise NotImplementedError
+
 
     def call(self, x):
         if self.rf == 1:
@@ -94,6 +100,7 @@ class Attention(keras.Model):
         self.attn_dropout = keras.layers.Dropout(cfg.attn_pdrop)
         self.resid_dropout = keras.layers.Dropout(cfg.resid_pdrop)
     
+
     def _attn(self, q, k, v):
         w = tf.matmul(q, k)
         if self.scale:
@@ -104,11 +111,13 @@ class Attention(keras.Model):
         w = tf.nn.softmax(w, -1)
         return tf.matmul(w, v)
     
+
     def merge_heads(self, x):
         x = tf.transpose(x, [0,2,1,3])
         new_x_shape = list(x.shape[:-2]) + [x.shape[-2]*x.shape[-1]]
         return tf.reshape(x, new_x_shape) # in openai implem: fct merge_states
-    
+
+
     def split_heads(self, x, k=False):
         new_x_shape = list(x.shape[:-1]) + [self.n_head, x.shape[-1]//self.n_head]
         x = tf.reshape(x, new_x_shape) # in openai implem: fct split_states
@@ -116,7 +125,8 @@ class Attention(keras.Model):
             return tf.transpose(x, [0,2,3,1])
         else:
             return tf.transpose(x, [0,2,1,3])
-    
+
+
     def call(self, x):
         x = self.c_attn(x)
         query, key, value = tf.split(x, 3, axis=2)
@@ -140,6 +150,7 @@ class MLP(keras.Model):
         self.act = cfg.afn
         self.dropout = keras.layers.Dropout(cfg.resid_pdrop)
     
+
     def call(self, x):
         h = self.act(self.c_fc(x))
         h2 = self.c_proj(h)
@@ -156,6 +167,7 @@ class Block(keras.Model):
         self.mlp = MLP(4 * nx, cfg)
         self.ln_2 = LayerNorm(nx)
     
+
     def call(self, x):
         a = self.attn(x)
         n = self.ln_1(x + a)
@@ -174,6 +186,7 @@ class TransformerModel(keras.Model):
         self.embed.build([1])
         self.drop = keras.layers.Dropout(cfg.embd_pdrop)
         self.h = [Block(n_ctx, cfg, scale=True) for _ in range(cfg.n_layer)]
+
 
     def call(self, x):
         x = tf.reshape(x, [-1,x.shape[-2],x.shape[-1]])
@@ -217,6 +230,7 @@ class MultipleChoiceHead(keras.Model):
             kernel_initializer=keras.initializers.RandomNormal(stddev=0.02), 
             bias_initializer=keras.initializers.RandomNormal(stddev=1))
         self.linear.build([cfg.n_embd])
+        
 
     def call(self, h, x):
         # Classification logits
@@ -249,6 +263,7 @@ class ClfHead(keras.Model):
             kernel_initializer=keras.initializers.RandomNormal(stddev=0.02), 
             bias_initializer=keras.initializers.RandomNormal(stddev=1))
 
+
     def call(self, h, x):
         clf_h = tf.reshape(h, [-1, self.n_embd])
         flat = tf.reshape(x[..., 0], [-1])
@@ -273,6 +288,7 @@ class SimilarityHead(keras.Model):
             kernel_initializer=keras.initializers.RandomNormal(stddev=0.02), 
             bias_initializer=keras.initializers.RandomNormal(stddev=1))
 
+
     def call(self, h, x):
         sim_h = tf.reshape(h, [-1, self.n_embd])
         flat = tf.reshape(x[..., 0], [-1])
@@ -294,6 +310,7 @@ class LMModel(keras.Model):
         if self.return_probs:
             pos_emb_mask = tf.zeros([1, 1, vocab]) # register buffer
             pos_emb_mask[:, :, -n_ctx:] = -1e12
+
 
     def call(self, x):
         h = self.transformer(x)
@@ -329,6 +346,7 @@ class DoubleHeadModel(keras.Model):
             raise ValueError("task_head_type is expected to be 'multiple_choice' "
                              "'similarity', 'inference' or ('classification', n_class) "
                              f"got {task_head_type}.")
+
 
     def call(self, x):
         h = self.transformer(x)

@@ -49,8 +49,6 @@ def celoss_zeros(logits, smooth=0.0):
                                                                   labels=tf.zeros_like(logits)*(1.0 - smooth)))
 
 
-
-
 def d_loss_fn(generator, discriminator, input_noise, real_image, is_trainig):
     fake_image = generator(input_noise, is_trainig)
     d_real_logits = discriminator(real_image, is_trainig)
@@ -67,9 +65,6 @@ def g_loss_fn(generator, discriminator, input_noise, is_trainig):
     d_fake_logits = discriminator(fake_image, is_trainig)
     loss = celoss_ones(d_fake_logits, smooth=0.1)
     return loss
-
-
-
 
 
 def main():
@@ -151,7 +146,6 @@ def main():
             fake_image = generator(val_z, training=False)
             image_fn = os.path.join('images', 'gan-val-{:03d}.png'.format(epoch + 1))
             save_result(fake_image.numpy(), val_block_size, image_fn, color_mode='L')
-
 
 
 

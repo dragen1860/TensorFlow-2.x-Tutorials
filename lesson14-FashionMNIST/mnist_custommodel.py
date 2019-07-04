@@ -8,6 +8,7 @@ def prepare_mnist_features_and_labels(x, y):
   y = tf.cast(y, tf.int64)
   return x, y
 
+
 def mnist_dataset():
 
   (x, y), (x_val, y_val) = datasets.fashion_mnist.load_data()
