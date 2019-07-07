@@ -1,6 +1,7 @@
 
 import  tensorflow as tf
 import  numpy as np
+import  matplotlib.pyplot as plt
 
 def get_angles(pos, i, d_model):
     angle_rates = 1 / np.power(10000, (2 * (i // 2)) / np.float32(d_model))
@@ -52,8 +53,10 @@ def create_look_ahead_mask(size):
     return mask  # (seq_len, seq_len)
 
 
-
 def create_masks(inp, tar):
+    # Encoder padding mask
+    enc_padding_mask = create_padding_mask(inp)
+
     # Used in the 2nd attention block in the decoder.
     # This padding mask is used to mask the encoder outputs.
     dec_padding_mask = create_padding_mask(inp)
@@ -65,7 +68,21 @@ def create_masks(inp, tar):
     dec_target_padding_mask = create_padding_mask(tar)
     combined_mask = tf.maximum(dec_target_padding_mask, look_ahead_mask)
 
-    return combined_mask, dec_padding_mask
+    return enc_padding_mask, combined_mask, dec_padding_mask
+
+# def create_masks2(inp, tar):
+#     # Used in the 2nd attention block in the decoder.
+#     # This padding mask is used to mask the encoder outputs.
+#     dec_padding_mask = create_padding_mask(inp)
+#
+#     # Used in the 1st attention block in the decoder.
+#     # It is used to pad and mask future tokens in the input received by
+#     # the decoder.
+#     look_ahead_mask = create_look_ahead_mask(tf.shape(tar)[1])
+#     dec_target_padding_mask = create_padding_mask(tar)
+#     combined_mask = tf.maximum(dec_target_padding_mask, look_ahead_mask)
+#
+#     return combined_mask, dec_padding_mask
 
 
 class CustomSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):

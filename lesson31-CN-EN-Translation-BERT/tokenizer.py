@@ -296,7 +296,7 @@ def _is_punctuation(char):
 
 
 
-def get_tokenizer():
+def get_tokenizer(MAX_SEQ_LENGTH, BATCH_SIZE):
     # ## Setup input pipleline
 
     # Use TFDS to load the wmt2019 zh-en translation dataset.
@@ -359,12 +359,12 @@ def get_tokenizer():
     tokenizer_zh = FullTokenizer(
         vocab_file='chinese_L-12_H-768_A-12/vocab.txt', do_lower_case=True)
 
-    test_tokens = tokenizer_zh.tokenize('埃隆·马斯克(Elon Musk)创建了特斯拉')
+    test_tokens = tokenizer_zh.tokenize('今天天气不错额。')
     test_ids = tokenizer_zh.convert_tokens_to_ids(['[CLS]'] + test_tokens + ['[SEP]'])
-    print(test_ids)
-    print(tokenizer_zh.convert_ids_to_tokens(test_ids))
+    print('tokens:', test_tokens)
+    print('ids:', test_ids)
+    print('convert_ids_to_tokens:', tokenizer_zh.convert_ids_to_tokens(test_ids))
 
-    MAX_SEQ_LENGTH = 128
 
     def encode(zh, en, seq_length=MAX_SEQ_LENGTH):
         tokens_zh = tokenizer_zh.tokenize(tf.compat.as_text(zh.numpy()))
@@ -372,6 +372,7 @@ def get_tokenizer():
         if len(lang1) < seq_length:
             lang1 = lang1 + list(np.zeros(seq_length - len(lang1), 'int32'))
 
+        # insert SOS and EOS
         lang2 = [tokenizer_en.vocab_size] + tokenizer_en.encode(
             tf.compat.as_text(en.numpy())) + [tokenizer_en.vocab_size + 1]
         if len(lang2) < seq_length:
@@ -379,18 +380,11 @@ def get_tokenizer():
 
         return lang1, lang2
 
-    # In[ ]:
+
 
     def filter_max_length(x, y, max_length=MAX_SEQ_LENGTH):
         return tf.logical_and(tf.size(x) <= max_length,
                               tf.size(y) <= max_length)
-
-    # Encode texts into integers.
-
-    # In[ ]:
-
-    BUFFER_SIZE = 50000
-    BATCH_SIZE = 64
 
     train_dataset = train_examples.map(
         lambda zh, en: tf.py_function(encode, [zh, en], [tf.int32, tf.int32]))
@@ -398,7 +392,7 @@ def get_tokenizer():
 
     # cache the dataset to memory to get a speedup while reading from it.
     train_dataset = train_dataset.cache()
-    train_dataset = train_dataset.shuffle(BUFFER_SIZE).padded_batch(
+    train_dataset = train_dataset.shuffle(20000).padded_batch(
         BATCH_SIZE, padded_shapes=([-1], [-1]), drop_remainder=True)
     train_dataset = train_dataset.prefetch(tf.data.experimental.AUTOTUNE)
 
@@ -407,8 +401,11 @@ def get_tokenizer():
     val_dataset = val_dataset.filter(filter_max_length)
     val_dataset = val_dataset.padded_batch(BATCH_SIZE, padded_shapes=([-1], [-1]))
 
+
+
+
     return train_dataset, val_dataset, tokenizer_en, tokenizer_zh
 
 
 if __name__ == '__main__':
-    get_tokenizer()
+    get_tokenizer(100, 64)

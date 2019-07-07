@@ -19,53 +19,47 @@ if gpus:
     print(e)
 
 from    tokenizer import get_tokenizer
-from    bertmodel import Transformer, Config
+from    transformer import Transformer
 from    utils import CustomSchedule, create_masks
 from    test import Translator
 
 
 
 
+BUFFER_SIZE = 20000
+BATCH_SIZE = 512
+MAX_SEQ_LENGTH = 64
 
-train_dataset, val_dataset, tokenizer_en, tokenizer_zh = get_tokenizer()
+train_dataset, val_dataset, tokenizer_en, tokenizer_zh = \
+    get_tokenizer(MAX_SEQ_LENGTH, BATCH_SIZE)
 
-
-config = Config(num_layers=6, d_model=256, dff=1024, num_heads=8)
-
-
+# Chinese -> English translation
+input_vocab_size = 21128 + 2
 target_vocab_size = tokenizer_en.vocab_size + 2
 dropout_rate = 0.1
+num_layers=4
+d_model=128
+dff=512
+num_heads=8
 
-BUFFER_SIZE = 50000
-BATCH_SIZE = 64
-MAX_SEQ_LENGTH = 128
-
-
-MODEL_DIR = "chinese_L-12_H-768_A-12"
-bert_config_file = os.path.join(MODEL_DIR, "bert_config.json")
-bert_ckpt_file = os.path.join(MODEL_DIR, "bert_model.ckpt")
-
-transformer = Transformer(config=config,
-                          target_vocab_size=target_vocab_size,
-                          bert_config_file=bert_config_file)
+transformer = Transformer(num_layers, d_model, num_heads, dff,
+                          input_vocab_size, target_vocab_size, dropout_rate)
 
 inp = tf.random.uniform((BATCH_SIZE, MAX_SEQ_LENGTH))
 tar_inp = tf.random.uniform((BATCH_SIZE, MAX_SEQ_LENGTH))
+
 fn_out, _ = transformer(inp, tar_inp,
                         True,
                         enc_padding_mask=None,
                         look_ahead_mask=None,
                         dec_padding_mask=None)
 print(tar_inp.shape)  # (batch_size, tar_seq_len)
-print(fn_out.shape)  # (batch_size, tar_seq_len, target_vocab_size) 
-
-# init bert pre-trained weights
-transformer.restore_encoder(bert_ckpt_file)
+print(fn_out.shape)  # (batch_size, tar_seq_len, target_vocab_size)
 transformer.summary()
 
 
 
-learning_rate = CustomSchedule(config.d_model)
+learning_rate = CustomSchedule(d_model)
 
 optimizer = tf.keras.optimizers.Adam(learning_rate, beta_1=0.9, beta_2=0.98,
                                      epsilon=1e-9)
@@ -73,7 +67,7 @@ optimizer = tf.keras.optimizers.Adam(learning_rate, beta_1=0.9, beta_2=0.98,
 
 
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy(
-    from_logits=True, reduction='none')
+                from_logits=True, reduction='none')
 
 def loss_function(real, pred):
     mask = tf.math.logical_not(tf.math.equal(real, 0))
@@ -87,10 +81,10 @@ def loss_function(real, pred):
 
 train_loss = tf.keras.metrics.Mean(name='train_loss')
 train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(
-    name='train_accuracy')
+                    name='train_accuracy')
 
 
-checkpoint_path = "./zh-en/bert"
+checkpoint_path = "./zh-en/transformer"
 
 ckpt = tf.train.Checkpoint(transformer=transformer,
                            optimizer=optimizer)
@@ -129,9 +123,9 @@ def train_step(inp, tar):
 # Chinese is used as the input language and English is the target language.
 translator = Translator(tokenizer_zh, tokenizer_en, transformer, MAX_SEQ_LENGTH)
 
-for epoch in range(4):
+for epoch in range(20):
 
-    res = translator.do('虽然继承了祖荫，但朴槿惠已经证明了自己是个机敏而老练的政治家。')
+    translator.do('我今天感觉太阳特别美丽。')
 
 
     start = time.time()
@@ -143,11 +137,11 @@ for epoch in range(4):
     for (batch, (inp, tar)) in enumerate(train_dataset):
         train_step(inp, tar)
 
-        if batch % 500 == 0:
+        if batch % 50 == 0:
             print('Epoch {} Batch {} Loss {:.4f} Accuracy {:.4f}'.format(
                 epoch + 1, batch, train_loss.result(), train_accuracy.result()))
 
-    if (epoch + 1) % 1 == 0:
+    if (epoch + 1) % 3 == 0:
         ckpt_save_path = ckpt_manager.save()
         print('Saving checkpoint for epoch {} at {}'.format(epoch + 1,
                                                             ckpt_save_path))
@@ -157,5 +151,6 @@ for epoch in range(4):
                                                         train_accuracy.result()))
 
     print('Time taken for 1 epoch: {} secs\n'.format(time.time() - start))
+
 
 
