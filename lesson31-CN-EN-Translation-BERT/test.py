@@ -80,7 +80,7 @@ class Translator:
         return tf.squeeze(output, axis=0), attention_weights
 
 
-# In[ ]:
+
 
 
     def plot_attention_weights(self, attention, sentence, result, layer):

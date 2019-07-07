@@ -27,19 +27,19 @@ from    test import Translator
 
 
 BUFFER_SIZE = 20000
-BATCH_SIZE = 512
-MAX_SEQ_LENGTH = 64
+BATCH_SIZE = 64
+MAX_SEQ_LENGTH = 128
 
 train_dataset, val_dataset, tokenizer_en, tokenizer_zh = \
     get_tokenizer(MAX_SEQ_LENGTH, BATCH_SIZE)
 
 # Chinese -> English translation
-input_vocab_size = 21128 + 2
+input_vocab_size = 21128
 target_vocab_size = tokenizer_en.vocab_size + 2
 dropout_rate = 0.1
 num_layers=4
-d_model=128
-dff=512
+d_model=512
+dff=2048
 num_heads=8
 
 transformer = Transformer(num_layers, d_model, num_heads, dff,
@@ -125,7 +125,20 @@ translator = Translator(tokenizer_zh, tokenizer_en, transformer, MAX_SEQ_LENGTH)
 
 for epoch in range(20):
 
-    translator.do('我今天感觉太阳特别美丽。')
+    (cn_code, en_code) = next(iter(val_dataset))
+    cn_code, en_code = cn_code[epoch].numpy(), en_code[epoch].numpy()
+    # print(cn_code)
+    # print(en_code)
+    en = tokenizer_en.decode([i for i in en_code if i < tokenizer_en.vocab_size])
+    cn_code = [int(i)
+                    for i in cn_code if (i!=101 and i!=102 and i!=1 and i!=0)]
+    # print(cn_code)
+    cn = tokenizer_zh.convert_ids_to_tokens(cn_code)
+    cn = "".join(cn)
+    translator.do(cn)
+    print('Real:', en)
+    print('\n')
+
 
 
     start = time.time()

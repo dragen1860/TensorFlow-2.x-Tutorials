@@ -25,9 +25,12 @@ from    test import Translator
 
 
 
+BUFFER_SIZE = 50000
+BATCH_SIZE = 64
+MAX_SEQ_LENGTH = 128
 
-
-train_dataset, val_dataset, tokenizer_en, tokenizer_zh = get_tokenizer()
+train_dataset, val_dataset, tokenizer_en, tokenizer_zh = \
+    get_tokenizer(MAX_SEQ_LENGTH, BATCH_SIZE)
 
 
 config = Config(num_layers=6, d_model=256, dff=1024, num_heads=8)
@@ -36,9 +39,7 @@ config = Config(num_layers=6, d_model=256, dff=1024, num_heads=8)
 target_vocab_size = tokenizer_en.vocab_size + 2
 dropout_rate = 0.1
 
-BUFFER_SIZE = 50000
-BATCH_SIZE = 64
-MAX_SEQ_LENGTH = 128
+
 
 
 MODEL_DIR = "chinese_L-12_H-768_A-12"
