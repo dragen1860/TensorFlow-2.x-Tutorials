@@ -5,6 +5,8 @@
 
 1. install required packages.
 
+`pip install bert-for-tf2`
+
 2. `python transformer_train.py` to run naive transformer model.
 
 3. `python bert_train.py` to run BERT pretrained encoder model.
