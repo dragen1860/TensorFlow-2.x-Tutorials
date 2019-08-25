@@ -7,6 +7,7 @@ Our repo. is the **Winner** of [⚡#PoweredByTF 2.0 Challenge!](https://devpost.
 </p>
 
 Timeline:
+- Aug. 24, 2019: [TensorFlow 2.0 rc0](https://www.tensorflow.org/versions/r2.0/api_docs/python/tf)
 - Jun. 8, 2019: [TensorFlow 2.0 Beta](https://twitter.com/fchollet/status/1134583289384120320)
 - Mar. 7, 2019: [Tensorflow 2.0 Alpha](https://www.tensorflow.org/alpha)
 - Jan. 11, 2019: [TensorFlow r2.0 preview](https://www.tensorflow.org/versions/r2.0/api_docs/python/tf)
@@ -20,7 +21,7 @@ make sure you are using python 3.x.
 
 - CPU install
 ```python
-pip install tensorflow==2.0.0-beta0
+pip install tensorflow==2.0.0-beta1
 ```
 
 - GPU install
@@ -28,7 +29,7 @@ pip install tensorflow==2.0.0-beta0
 Install `CUDA 10.0`(or after) and `cudnn` by yourself. and set `LD_LIBRARY_PATH` up.
 
 ```python
-pip install tensorflow-gpu==2.0.0-beta0
+pip install tensorflow-gpu==2.0.0-beta1
 ```
 
 Test installation:
