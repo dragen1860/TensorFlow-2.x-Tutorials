@@ -42,8 +42,8 @@ class MyDense(layers.Layer):
 	def __init__(self, inp_dim, outp_dim):
 		super(MyDense, self).__init__()
 
-		self.kernel = self.add_variable('w', [inp_dim, outp_dim])
-		self.bias = self.add_variable('b', [outp_dim])
+		self.kernel = self.add_weight('w', [inp_dim, outp_dim])
+		self.bias = self.add_weight('b', [outp_dim])
 
 	def call(self, inputs, training=None):
 
