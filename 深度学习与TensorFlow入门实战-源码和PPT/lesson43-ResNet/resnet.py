@@ -28,11 +28,11 @@ class BasicBlock(layers.Layer):
 
         # [b, h, w, c]
         out = self.conv1(inputs)
-        out = self.bn1(out)
+        out = self.bn1(out,training=training)
         out = self.relu(out)
 
         out = self.conv2(out)
-        out = self.bn2(out)
+        out = self.bn2(out,training=training)
 
         identity = self.downsample(inputs)
 
@@ -71,10 +71,10 @@ class ResNet(keras.Model):
 
         x = self.stem(inputs)
 
-        x = self.layer1(x)
-        x = self.layer2(x)
-        x = self.layer3(x)
-        x = self.layer4(x)
+        x = self.layer1(x,training=training)
+        x = self.layer2(x,training=training)
+        x = self.layer3(x,training=training)
+        x = self.layer4(x,training=training)
 
         # [b, c]
         x = self.avgpool(x)
