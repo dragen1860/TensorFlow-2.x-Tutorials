@@ -69,7 +69,7 @@ class ResNet(keras.Model):
 
     def call(self, inputs, training=None):
 
-        x = self.stem(inputs)
+        x = self.stem(inputs,training=training)
 
         x = self.layer1(x,training=training)
         x = self.layer2(x,training=training)
