@@ -66,7 +66,7 @@ class MyRNN(keras.Model):
         x = self.embedding(x)
         # rnn cell compute
         # x: [b, 80, 100] => [b, 64]
-        x = self.rnn(x)
+        x = self.rnn(x,training=training)
 
         # out: [b, 64] => [b, 1]
         x = self.outlayer(x)
