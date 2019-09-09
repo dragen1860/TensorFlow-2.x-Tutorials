@@ -92,7 +92,7 @@ def main():
     model = MyRNN(units)
     model.compile(optimizer = keras.optimizers.Adam(0.001),
                   loss = tf.losses.BinaryCrossentropy(),
-                  metrics=['accuracy'])
+                  metrics=['accuracy'],experimental_run_tf_function=False)
     model.fit(db_train, epochs=epochs, validation_data=db_test)
 
     model.evaluate(db_test)
