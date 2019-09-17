@@ -81,7 +81,7 @@ class ResNet(keras.Model):
 
     def call(self, inputs, training=None):
         # print('x:',inputs.shape)
-        out = self.stem(inputs)
+        out = self.stem(inputs，training=training)
         out = tf.nn.relu(out)
 
         # print('stem:',out.shape)
