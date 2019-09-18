@@ -69,7 +69,7 @@ def gradient_penalty(discriminator, batch_x, fake_image):
 
     with tf.GradientTape() as tape:
         tape.watch([interplate])
-        d_interplote_logits = discriminator(interplate)
+        d_interplote_logits = discriminator(interplate,is_training)
     grads = tape.gradient(d_interplote_logits, interplate)
 
     # grads:[b, h, w, c] => [b, -1]
