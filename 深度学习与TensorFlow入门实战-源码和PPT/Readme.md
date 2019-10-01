@@ -5,7 +5,7 @@
 请先安装Anaconda, CUDA 10.0, cuDNN。
 
 ```python
-pip install tensorflow-gpu==2.0.0-rc0 numpy matplotlib pillow pandas -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -U tensorflow-gpu numpy matplotlib pillow pandas -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ## 课程链接
