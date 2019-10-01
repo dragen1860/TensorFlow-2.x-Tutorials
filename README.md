@@ -38,7 +38,7 @@ Test installation:
 In [2]: import tensorflow  as tf
 
 In [3]: tf.__version__
-Out[3]: '2.0.0-dev20190129'
+Out[3]: '2.0.0'
 In [4]: tf.test.is_gpu_available()
 ...
 totalMemory: 3.95GiB freeMemory: 3.00GiB
