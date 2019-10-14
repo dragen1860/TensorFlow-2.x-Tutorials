@@ -9,7 +9,19 @@ tf.random.set_seed(22)
 np.random.seed(22)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 assert tf.__version__.startswith('2.')
-
+# 设置GPU显存按需分配
+gpus = tf.config.experimental.list_physical_devices('GPU') 
+if gpus:
+  try:
+    # Currently, memory growth needs to be the same across GPUs
+    for gpu in gpus:
+      tf.config.experimental.set_memory_growth(gpu, True)
+    logical_gpus = tf.config.experimental.list_logical_devices('GPU')
+    print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPUs")
+  except RuntimeError as e:
+    # Memory growth must be set before GPUs have been initialized
+    print(e)
+    
 
 from    pokemon import load_pokemon, normalize, denormalize
 from    resnet import ResNet
@@ -19,10 +31,18 @@ def preprocess(x,y):
     # x: 图片的路径，y：图片的数字编码
     x = tf.io.read_file(x)
     x = tf.image.decode_jpeg(x, channels=3) # RGBA
-    x = tf.image.resize(x, [244, 244])
-
+    # 图片缩放
+    # x = tf.image.resize(x, [244, 244])
+    # 图片旋转
+    # x = tf.image.rot90(x,2)
+    # 随机水平翻转
     x = tf.image.random_flip_left_right(x)
+    # 随机竖直翻转
     # x = tf.image.random_flip_up_down(x)
+    
+    # 图片先缩放到稍大尺寸
+    x = tf.image.resize(x, [244, 244])
+    # 再随机裁剪到合适尺寸
     x = tf.image.random_crop(x, [224,224,3])
 
     # x: [0,255]=> -1~1
@@ -64,7 +84,7 @@ resnet = keras.Sequential([
 ])
 
 
-# resnet = ResNet(5)
+resnet = ResNet(5)
 resnet.build(input_shape=(4, 224, 224, 3))
 resnet.summary()
 
