@@ -1,12 +1,15 @@
 import os
 import time
 import numpy as np
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
+
+
 import tensorflow as tf
 from tensorflow.python.ops import summary_ops_v2
 from tensorflow import keras
 from tensorflow.keras import datasets, layers, models, optimizers, metrics
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
+
 
 
 model = tf.keras.Sequential([
