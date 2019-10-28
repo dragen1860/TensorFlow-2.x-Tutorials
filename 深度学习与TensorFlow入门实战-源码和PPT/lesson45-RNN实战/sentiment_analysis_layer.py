@@ -81,6 +81,8 @@ def main():
     epochs = 4
 
     model = MyRNN(units)
+    # model.build(input_shape=(4,80))
+    # model.summary()
     model.compile(optimizer = keras.optimizers.Adam(0.001),
                   loss = tf.losses.BinaryCrossentropy(),
                   metrics=['accuracy'])

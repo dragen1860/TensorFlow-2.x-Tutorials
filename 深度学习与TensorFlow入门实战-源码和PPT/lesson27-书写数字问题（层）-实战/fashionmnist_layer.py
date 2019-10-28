@@ -17,6 +17,7 @@ def preprocess(x, y):
 (x, y), (x_test, y_test) = datasets.fashion_mnist.load_data()
 print(x.shape, y.shape)
 
+
 batchsz = 128
 
 db = tf.data.Dataset.from_tensor_slices((x,y))
