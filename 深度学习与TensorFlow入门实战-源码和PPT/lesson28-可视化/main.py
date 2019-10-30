@@ -1,8 +1,13 @@
+import  os
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
+
 import  tensorflow as tf
 from    tensorflow.keras import datasets, layers, optimizers, Sequential, metrics
 import  datetime
 from    matplotlib import pyplot as plt
 import  io
+
+assert tf.__version__.startswith('2.')
 
 def preprocess(x, y):
 
