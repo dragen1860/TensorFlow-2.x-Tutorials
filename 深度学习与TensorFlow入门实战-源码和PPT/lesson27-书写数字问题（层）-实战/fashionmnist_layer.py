@@ -5,7 +5,7 @@ import tensorflow as tf
 from    tensorflow import keras
 from    tensorflow.keras import datasets, layers, optimizers, Sequential, metrics
 
-
+assert tf.__version__.startswith('2.')
 
 def preprocess(x, y):
 
