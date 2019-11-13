@@ -1,5 +1,7 @@
 import  os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 
 import  tensorflow as tf
 import  numpy as np
@@ -8,7 +10,7 @@ from    tensorflow.keras import layers,optimizers,losses
 from    tensorflow.keras.callbacks import EarlyStopping
 
 tf.random.set_seed(22)
-np.random.seed(22) 
+np.random.seed(22)
 assert tf.__version__.startswith('2.')
 # 设置GPU显存按需分配
 gpus = tf.config.experimental.list_physical_devices('GPU') 
