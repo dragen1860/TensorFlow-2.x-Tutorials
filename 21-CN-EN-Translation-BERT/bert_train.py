@@ -18,10 +18,10 @@ if gpus:
     # Memory growth must be set before GPUs have been initialized
     print(e)
 
-from    tokenizer import get_tokenizer
-from    bertmodel import Transformer, Config
-from    utils import CustomSchedule, create_masks
-from    test import Translator
+from  tokenizer import get_tokenizer
+from  bertmodel import Transformer, Config
+from  utils import CustomSchedule, create_masks
+from  test import Translator
 
 
 
