@@ -1,10 +1,9 @@
 import  os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
-
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import  numpy as np
 import  tensorflow as tf
-from    tensorflow import keras
-from    scipy.misc import toimage
+from    tensorflow import keras 
+from	PIL import Image
 import  glob
 from    gan import Generator, Discriminator
 
@@ -38,8 +37,8 @@ def save_result(val_out, val_block_size, image_path, color_mode):
             single_row = np.array([])
 
     if final_image.shape[2] == 1:
-        final_image = np.squeeze(final_image, axis=2)
-    toimage(final_image).save(image_path)
+        final_image = np.squeeze(final_image, axis=2) 
+    Image.fromarray(final_image).save(image_path)
 
 
 def celoss_ones(logits):
@@ -84,7 +83,6 @@ def main():
 
     tf.random.set_seed(22)
     np.random.seed(22)
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     assert tf.__version__.startswith('2.')
 
 
@@ -96,7 +94,8 @@ def main():
     is_training = True
 
 
-    img_path = glob.glob(r'C:\Users\Jackie Loong\Downloads\DCGAN-LSGAN-WGAN-GP-DRAGAN-Tensorflow-2-master\data\faces\*.jpg')
+    img_path = glob.glob(r'C:\Users\Jackie\Downloads\faces\*.jpg')
+    assert len(img_path) > 0
 
     dataset, img_shape, _ = make_anime_dataset(img_path, batch_size)
     print(dataset, img_shape)
@@ -112,15 +111,14 @@ def main():
     discriminator = Discriminator()
     discriminator.build(input_shape=(None, 64, 64, 3))
 
-    g_optimizer = tf.optimizers.Adam(learning_rate=learning_rate, beta_1=0.5)
-    d_optimizer = tf.optimizers.Adam(learning_rate=learning_rate, beta_1=0.5)
+    g_optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate, beta_1=0.5)
+    d_optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate, beta_1=0.5)
 
 
     for epoch in range(epochs):
 
-        batch_z = tf.random.uniform([batch_size, z_dim], minval=-1., maxval=1.)
+        batch_z = tf.random.normal([batch_size, z_dim])
         batch_x = next(db_iter)
-
         # train D
         with tf.GradientTape() as tape:
             d_loss = d_loss_fn(generator, discriminator, batch_z, batch_x, is_training)
@@ -128,6 +126,7 @@ def main():
         d_optimizer.apply_gradients(zip(grads, discriminator.trainable_variables))
 
 
+        batch_z = tf.random.normal([batch_size, z_dim])
         with tf.GradientTape() as tape:
             g_loss = g_loss_fn(generator, discriminator, batch_z, is_training)
         grads = tape.gradient(g_loss, generator.trainable_variables)
@@ -136,7 +135,7 @@ def main():
         if epoch % 100 == 0:
             print(epoch, 'd-loss:',float(d_loss), 'g-loss:', float(g_loss))
 
-            z = tf.random.uniform([100, z_dim])
+            z = tf.random.normal([100, z_dim])
             fake_image = generator(z, training=False)
             img_path = os.path.join('images', 'gan-%d.png'%epoch)
             save_result(fake_image.numpy(), 10, img_path, color_mode='P')
