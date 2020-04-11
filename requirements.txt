@@ -5,3 +5,4 @@ matplotlib
 numpy
 networkx
 scikit-image
+gym
