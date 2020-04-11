@@ -4,3 +4,4 @@ tensorflow==2.0.0
 matplotlib
 numpy
 networkx
+scikit-image
