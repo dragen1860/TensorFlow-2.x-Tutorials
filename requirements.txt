@@ -6,3 +6,6 @@ numpy
 networkx
 scikit-image
 gym
+keras-layer-normalization-0.14.0
+keras-pos-embd-0.11.0
+keras_transformer
