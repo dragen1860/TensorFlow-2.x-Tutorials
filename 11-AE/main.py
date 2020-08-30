@@ -119,9 +119,9 @@ for epoch in range(num_epochs):
     out = tf.nn.sigmoid(out_logits)  # out is just the logits, use sigmoid
     out = tf.reshape(out, [-1, 28, 28]).numpy() * 255
 
-    x = tf.reshape(x[:batch_size // 2], [-1, 28, 28])
+    x = tf.reshape(x[:batch_size // 2], [-1, 28, 28]).numpy() * 255
 
-    x_concat = tf.concat([x, out], axis=0).numpy() * 255.
+    x_concat = tf.concat([x, out], axis=0).numpy()
     x_concat = x_concat.astype(np.uint8)
 
     index = 0
@@ -132,7 +132,7 @@ for epoch in range(num_epochs):
             new_im.paste(im, (i, j))
             index += 1
 
-    new_im.save('images/vae_reconstructed_epoch_%d.png' % (epoch + 1))
+    new_im.save('images/ae_reconstructed_epoch_%d.png' % (epoch + 1))
     plt.imshow(np.asarray(new_im))
     plt.show()
     print('New images saved !')
