@@ -13,8 +13,8 @@ def parse(line):
     # Each line of the dataset is comma-separated and formatted as
     #    color_name, r, g, b
     # so `items` is a list [color_name, r, g, b].
-    items = tf.string_split([line], ",").values
-    rgb = tf.strings.to_number(items[1:], out_type=tf.float32) / 255.
+    items = tf.compat.v1.string_split([line], ",").values
+    rgb = tf.compat.v1.strings.to_number(items[1:], out_type=tf.float32) / 255.
     # Represent the color name as a one-hot encoded character sequence.
     color_name = items[0]
     chars = tf.one_hot(tf.io.decode_raw(color_name, tf.uint8), depth=256)
