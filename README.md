@@ -1,4 +1,4 @@
-# TensorFlow 2.0 Tutorials 
+# TensorFlow 2.0 Tutorials
 Our repo. is the **Winner** of [⚡#PoweredByTF 2.0 Challenge!](https://devpost.com/software/tensorflow-2-0-tutorials).
 
 
@@ -47,7 +47,7 @@ Out[4]: True
 
 ```
 
- 
+
 
 
 # 配套TF2视频教程
@@ -56,11 +56,11 @@ Out[4]: True
   <a href="https://study.163.com/course/courseMain.htm?share=2&shareId=480000001847407&courseId=1209092816&_trace_c_p_k2_=dca16f8fd11a4525bac8c89f779b2cfa">
     <img src="res/cover.png" width="400">
   </a>
-  
+
   <a href="https://study.163.com/course/courseMain.htm?share=2&shareId=480000001847407&courseId=1209092816&_trace_c_p_k2_=dca16f8fd11a4525bac8c89f779b2cfa">
     <img src="res/TF_QR_163.png">
   </a>
-</p> 
+</p>
 
 TensorFlow 2.0的视频教程链接：[深度学习与TensorFlow 2实战](https://study.163.com/course/courseMain.htm?share=2&shareId=480000001847407&courseId=1209092816&_trace_c_p_k2_=dca16f8fd11a4525bac8c89f779b2cfa)
 
@@ -96,7 +96,7 @@ TensorFlow 2.0的视频教程链接：[深度学习与TensorFlow 2实战](https:
 - GCN
 
 Feel free to submit a **PR** request to make this repo. more complete!
- 
+
 
 
 # Refered Repos.

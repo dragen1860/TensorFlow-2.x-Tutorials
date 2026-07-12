@@ -28,7 +28,7 @@ logits = Logit_Layer(hidden)
 entropy = tf.nn.softmax_cross_entropy_with_logits(
     logits=logits, labels=labels)
 loss = tf.reduce_mean(entropy)
-train_step = SGD_Trainer.minimize(loss, 
+train_step = SGD_Trainer.minimize(loss,
     var_list=ReLU_Layer.weights+Logit_Layer.weights)
 
 sess = tf.InteractiveSession()
@@ -51,7 +51,7 @@ def loss_fn(inputs=X, labels=y):
     return tf.reduce_mean(entropy)
 
 for step in range(1000):
-    SGD_Trainer.minimize(loss_fn, 
+    SGD_Trainer.minimize(loss_fn,
         var_list=ReLU_Layer.weights+Logit_Layer.weights)
 ```
 
